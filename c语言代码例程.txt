@@ -26,7 +26,7 @@
 26.  井字棋
 27.  一个非空整型数组，某个元素只出现一次，其余元素均出现两次，找出这个只出现一次的数字
 28.  扫雷
-
+29.  统计一个整数补码中有几个1
 
 
 
@@ -1470,4 +1470,56 @@ void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)   
 	}
 }
 
+29.  统计一个整数补码中有几个1
+①
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int num = 0;
+    int i = 0;
+    int count = 0;
+    printf("请输入一个整数：");
+    scanf("%d",&num);
+    for (i = 0; i < 32; i++)
+    {
+        if (1 == ((num >> 1) & 1))
+        {
+            count++;
+        }
+    }
+    printf("该数补码中共%d个1",count);
+    return 0;
+}
+②优化后
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int num = 0;
+    int i = 0;
+    int count = 0;
+    printf("请输入一个整数：");
+    scanf("%d",&num);
+    while (num)
+    {
+        num = num & (num - 1);
+        count++;
+    }
+    printf("该数补码中共%d个1",count);
+    return 0;
+}
+
+30.  操作符的使用（与，或，按位取反等）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int a = 11;              //1011
+    a = a | (1 << 2);        //1111（第三位变成1）
+    printf("%d\n",a);
+    a = a & (~(1 << 2));     //1011 (第三位变成0)
+    printf("%d\n",a);
+    return 0;
+}
 
