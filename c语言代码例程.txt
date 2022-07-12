@@ -29,6 +29,24 @@
 29.  统计一个整数补码中有几个1
 30.  操作符的使用（与，或，按位取反等）
 31.  打印整数二进制位的奇数位和偶数位
+32.  用函数递归倒置字符串
+33.  判断大端存储还是小端存储
+34.   整型提升
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 
 
@@ -1550,5 +1568,64 @@ int main()
     printf("请输入一个整数：");
     scanf("%d",&n);
     count(n);
+    return 0;
+}
+
+32.  用函数递归倒置字符串
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+void reverse_string(char arr[])
+{
+    char tmp = arr[0];
+    int len = strlen(arr);
+    arr[0] = arr[len - 1];
+    arr[len - 1] = '\0';
+    if (strlen(arr+1) >= 2)
+    {
+        reverse_string(arr+1);
+    }
+    arr[len - 1] = tmp;
+}
+int main()
+{
+    char arr[] = "abcdefg";
+    reverse_string(arr);
+    printf("%s\n",arr);
+    return 0;
+}
+
+33.  判断大端存储还是小端存储
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int check()
+{
+    int a = 1;
+    char* p = (char*)&a;
+    return *p;
+}
+int main()
+{
+    int ret = check();
+    if (ret == 1)
+    {
+        printf("小端存储\n");    //从低地址开始，先存低序字节，再存高序字节
+    }
+    else
+    {
+        printf("大端存储\n");    //从低地址开始，现存高序字节，再存低序字节
+    }
+    return 0;
+}
+
+34.   整型提升
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                              //整型提升：无符号数前面补0，有符号数前面补符号位
+    char a = -1;               //补码11111111111111111111111111111111
+    signed char b = -1;        //补码11111111111111111111111111111111
+    unsigned char c = -1;      //补码00000000000000000000000011111111
+    printf("a=%d,b=%d,c=%d",a,b,c);
     return 0;
 }
