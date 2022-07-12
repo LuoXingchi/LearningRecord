@@ -31,8 +31,8 @@
 31.  打印整数二进制位的奇数位和偶数位
 32.  用函数递归倒置字符串
 33.  判断大端存储还是小端存储
-34.   整型提升
-
+34.  整型提升
+35.  signed char 数据大小规则
 
 
 
@@ -1627,5 +1627,16 @@ int main()
     signed char b = -1;        //补码11111111111111111111111111111111
     unsigned char c = -1;      //补码00000000000000000000000011111111
     printf("a=%d,b=%d,c=%d",a,b,c);
+    return 0;
+}
+
+35.  signed char 数据大小规则
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                    
+    //signed char 数据大小排序：... 0 1 2 ... 126 127 -128 -127 ... -3 -2 -1 0 1 2 ...
+    char a = 128;          
+    printf("a=%d",a);
     return 0;
 }
