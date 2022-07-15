@@ -36,7 +36,7 @@
 36.  float 数据存储规则
 37.  利用数组指针打印二维数组
 38.  函数指针数组实现多个简单计算
-
+39.  回调函数(qsort()函数的使用 及 设计bubble()函数模拟qsort()函数)
 
 
 
@@ -1771,4 +1771,131 @@ int main()
     return 0;
 }
 
-39.  
+39.  回调函数(qsort()函数的使用 及 设计bubble()函数模拟qsort()函数)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int cmp_int(const void* e1, const void* e2)    //void*类型指针可以接收任何类型的地址(不可解引用且不能加减)
+{
+    return (int)(*(int*)e1 - *(int*)e2);
+}
+
+void test1()    //整型数据排序
+{
+    int i = 0;
+    int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    qsort(arr, sz, sizeof(arr[0]), cmp_int);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
+
+
+int cmp_float(const void* e1, const void* e2)
+{
+    return (int)*(float*)e1 - *(float*)e2;
+}
+
+void test2()  //浮点型数据排序
+{
+    int i = 0;
+    float f[10] = { 9.0,8.0,7.0,6.0,5.0,4.0,3.0,2.0,1.0,0 };
+    int sz = sizeof(f) / sizeof(f[0]);
+    qsort(f, sz, sizeof(f[0]), cmp_float);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%f ", f[i]);
+    }
+}
+
+
+
+struct Stu                  //定义一个结构体
+{
+    char name[20];
+    int age;
+};
+
+int cmp_stu_by_age(const void* e1, const void* e2)                  //按age给结构体排序
+{
+    return  ((struct Stu*)e1)->age - ((struct Stu*)e2)->age;
+}
+
+int cmp_stu_by_name(const void* e1, const void* e2)                 //按name给结构体排序
+{
+    return strcmp(((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
+}
+
+void test3()
+{
+    struct Stu s[3] = { {"zhangsan",20},{"lisi",30},{"wangwu",10} };
+    int sz = sizeof(s) / sizeof(s[0]);
+    qsort(s, sz, sizeof(s[0]), cmp_stu_by_name);
+    //qsort(base,number,size,cmp_function)
+    //base:待排序数组首元素地址
+    //number:待排序数组的元素个数
+    //size:待排序数组每个元素的大小(单位是字节)
+    //cmp_function:函数指针，比较两个元素所用函数的地址(这个函数需要使用者自己实现)
+    //             函数指针的两个参数是待比较的两个元素的地址
+}
+
+void Swap(char* buf1, char* buf2, int width)
+{
+    int i = 0;
+    for (i = 0; i < width; i++)
+    {
+        char tmp = *buf1;
+        *buf1 = *buf2;
+        *buf2 = tmp;
+        buf1++;
+        buf2++;
+    }
+}
+
+void bubble_sort(void* base, int sz, int width, int (*cmp)(void*e1,void*e2))
+{
+    int i = 0;
+    for (i = 0; i < sz - 1; i++)
+    {
+        int j = 0;
+        for (j = 0; j < sz - 1 - i; j++)
+        {
+            if (cmp((char*)base + j * width, (char*)base + (j + 1) * width) > 0)
+            {
+                Swap((char*)base + j * width, (char*)base + (j + 1) * width, width);  //交换
+            }
+        }
+    }
+}
+
+void test4()
+{
+    int i = 0;
+    int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    bubble_sort(arr,sz,sizeof(arr[0]),cmp_int);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
+
+void test5()
+{
+    struct Stu s[3] = { {"zhangsan",20},{"lisi",30},{"wangwu",10} };
+    int sz = sizeof(s) / sizeof(s[0]);
+    bubble_sort(s, sz, sizeof(s[0]), cmp_stu_by_age);
+}
+int main()
+{
+    //test1();
+    //test2();
+    //test3();
+    //test4();
+    test5();
+    return 0;
+}
