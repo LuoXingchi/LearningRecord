@@ -1571,7 +1571,8 @@ int main()
     return 0;
 }
 
-32.  用函数递归倒置字符串
+32.  倒置字符串
+①用函数递归
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<string.h>
@@ -1594,6 +1595,36 @@ int main()
     printf("%s\n",arr);
     return 0;
 }
+②指针
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+void reverse(char* str)
+{
+    int len = strlen(str);
+    char* left = str;
+    char* right = str + len - 1;
+    while (left < right)
+    {
+        char tmp = *left;
+        *left = *right;
+        *right = tmp;
+        left++;
+        right--;
+    }
+}
+int main()
+{
+    char arr[256] = { 0 };
+    printf("请输入字符串：");
+  //scanf("%s", arr);
+    gets(arr);
+    printf("您输入的字符串为：%s\n",arr);
+    reverse(arr);
+    printf("倒置后：%s\n",arr);
+    return 0;
+}
+
 
 33.  判断大端存储还是小端存储
 #define _CRT_SECURE_NO_WARNINGS 1
