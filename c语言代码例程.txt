@@ -2395,3 +2395,268 @@ int main()
     }
     return 0;
 }
+
+51.  通讯录实现
+注：本程序分为三个文档： ① test.c :在本文件内设计游戏流程
+                                         ② contact.h :在本文件内进行函数的声明及头文件的引用
+                                         ③ contact.c :在本文件内设计游戏中函数的具体实现
+①test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"contact.h"
+void menu()
+{
+    printf("*************************************\n");
+    printf("***** 1. add      2. del        *********\n");
+    printf("***** 3. search   4. modify *********\n");
+    printf("***** 5. show     6. sort     *********\n");
+    printf("***** 0. exit                       *********\n");
+    printf("*************************************\n");
+}
+int main()
+{
+    int input = 0;
+    struct Contact con;   //创建通讯录，存放1000个人的信息和size
+    InitContact(&con);    //初始化通讯录
+    do
+    {
+        menu();
+        printf("请选择：");
+        scanf("%d",&input);
+        switch (input)
+        {
+        case ADD:
+            AddContact(&con);
+            break;
+        case DEL:
+            DelContact(&con);
+            break;
+        case MODIFY:
+            ModifyContact(&con);
+            break;
+        case SEARCH:
+            SerchContact(&con);
+            break;
+        case SHOW:
+            ShowContact(&con);
+            break;
+        case SORT:
+            SortContact(&con);
+            break;
+        case EXIT:
+            printf("退出通讯录\n");
+            break;
+        default:
+            printf("选择错误\n");
+        }
+    } while (input);
+    return 0;
+}
+
+② contact.h 
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+
+#define MAX 1000
+#define MAX_NAME 15
+#define MAX_SEX 5
+#define MAX_TELE 12
+#define MAX_ADDR 30
+
+enum Option
+{
+	EXIT,
+	ADD,
+	DEL,
+	SEARCH,
+	MODIFY,
+	SHOW,
+	SORT
+};
+
+struct PeoInfo
+{
+	char name[MAX_NAME];
+	int age;
+	char sex[MAX_SEX];
+	char tele[MAX_TELE];
+	char addr[MAX_ADDR];
+};
+
+struct Contact
+{
+	struct PeoInfo data[MAX];  //存放10001个信息
+	int size;  //记录当前已经有的元素个数
+};
+
+void InitContact(struct Contact* ps);                  //初始化
+void AddContact(struct Contact* ps);                //增
+void DelContact(struct Contact* ps);                 //删
+void ModifyContact(struct Contact* ps);           //改
+void SerchContact(const struct Contact* ps);    //查
+void ShowContact(const struct Contact* ps);    //打印
+void SortContact( struct Contact* ps);               //排序
+
+ ③ contact.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"contact.h"
+//根据名字查找
+static int FindByName(const struct Contact* ps,char name[MAX_NAME])
+{
+	int i = 0;
+	for (i = 0; i < ps->size; i++)
+	{
+		if (0 == strcmp(ps->data[i].name, name))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+//初始化通讯录
+void InitContact(struct Contact* ps)
+{
+	memset(ps->data, 0, sizeof(ps->data));
+	ps->size = 0;    //设置通讯录最初只有0个元素
+}
+//增加数据
+void AddContact(struct Contact* ps)
+{
+	if (ps->size == MAX)
+	{
+		printf("通讯录已满，无法增加\n");
+	}
+	else
+	{
+		printf("请输入名字：");
+		scanf("%s", ps->data[ps->size].name);
+		printf("请输入年龄：");
+		scanf("%d", &(ps->data[ps->size].age));
+		printf("请输入性别：");
+		scanf("%s", ps->data[ps->size].sex);
+		printf("请输入电话：");
+		scanf("%s", ps->data[ps->size].tele);
+		printf("请输入地址：");
+		scanf("%s", ps->data[ps->size].addr);
+		ps->size++;
+		printf("添加成功\n");
+	}
+}
+//删除数据
+void DelContact(struct Contact* ps)
+{
+	char name[MAX_NAME];
+	printf("请输入要删除人的名字：");
+	scanf("%s", name);
+	int pos = FindByName(ps, name);      //找到了返回名字元素的下标，否则返回-1
+	if (pos == -1)
+	{
+		printf("要删除的人不存在\n");
+	}
+	else
+	{
+		int j = 0;
+		for (j = pos; j < ps->size - 1; j++)
+		{
+			ps->data[j] = ps->data[j + 1];
+		}
+		ps->size--;
+		printf("删除成功\n");
+	}
+}
+//打印通讯录
+void ShowContact(const struct Contact* ps)
+{
+	if (ps->size == 0)
+	{
+		printf("通讯录为空\n");
+	}
+	else
+	{
+		int i = 0;
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		for (i = 0; i < ps->size; i++)
+		{
+			printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+				ps->data[i].name, 
+				ps->data[i].age, 
+				ps->data[i].sex, 
+				ps->data[i].tele, 
+				ps->data[i].addr );
+		}
+	}
+}
+//根据名字搜索数据
+void SerchContact(const struct Contact* ps)
+{
+	char name[MAX_NAME];
+	printf("请输入要查找人的名字：");
+	scanf("%s", name);
+	int pos = FindByName(ps, name);      
+	if (pos == -1)
+	{
+		printf("要查找的人不存在\n");
+	}
+	else
+	{
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+				ps->data[pos].name,
+				ps->data[pos].age,
+				ps->data[pos].sex,
+				ps->data[pos].tele,
+				ps->data[pos].addr);
+	}
+}
+//修改数据
+void ModifyContact(struct Contact* ps)
+{
+	char name[MAX_NAME];
+	printf("请输入要修改人的名字：");
+	scanf("%s", name);
+	int pos = FindByName(ps, name);
+	if (pos == -1)
+	{
+		printf("要修改的人不存在\n");
+	}
+	else
+	{
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+			ps->data[pos].name,
+			ps->data[pos].age,
+			ps->data[pos].sex,
+			ps->data[pos].tele,
+			ps->data[pos].addr);
+		printf("请输入名字：");
+		scanf("%s", ps->data[pos].name);
+		printf("请输入年龄：");
+		scanf("%d", &(ps->data[pos].age));
+		printf("请输入性别：");
+		scanf("%s", ps->data[pos].sex);
+		printf("请输入电话：");
+		scanf("%s", ps->data[pos].tele);
+		printf("请输入地址：");
+		scanf("%s", ps->data[pos].addr);
+	}
+}
+//根据年龄从小到大排序
+void SortContact(struct Contact* ps)
+{
+	int i = 0;
+	for (i = 0; i < ps->size - 1; i++)
+	{
+		int j = 0;
+		for (j = i + 1; j < ps->size; j++)
+		{
+			if (ps->data[i].age > ps->data[j].age)
+			{
+				struct PeoInfo tmp = {0};
+				tmp = ps->data[i];
+				ps->data[i] = ps->data[j];
+				ps->data[j] = tmp;
+			}
+		}
+	}
+	printf("排序完成\n");
+}
