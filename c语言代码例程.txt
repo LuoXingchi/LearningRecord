@@ -48,7 +48,7 @@
 48.  实现strcat函数
 49.  实现strstr函数
 50.  实现memmove函数
-
+51.  通讯录实现(默认可存储三个人的信息，可动态增容)
 
 
 
@@ -2396,7 +2396,7 @@ int main()
     return 0;
 }
 
-51.  通讯录实现
+51.  通讯录实现(默认可存储三个人的信息，可动态增容)
 注：本程序分为三个文档： ① test.c :在本文件内设计游戏流程
                                          ② contact.h :在本文件内进行函数的声明及头文件的引用
                                          ③ contact.c :在本文件内设计游戏中函数的具体实现
@@ -2406,16 +2406,16 @@ int main()
 void menu()
 {
     printf("*************************************\n");
-    printf("***** 1. add      2. del        *********\n");
+    printf("***** 1. add      2. del    *********\n");
     printf("***** 3. search   4. modify *********\n");
-    printf("***** 5. show     6. sort     *********\n");
-    printf("***** 0. exit                       *********\n");
+    printf("***** 5. show     6. sort   *********\n");
+    printf("***** 0. exit               *********\n");
     printf("*************************************\n");
 }
 int main()
 {
     int input = 0;
-    struct Contact con;   //创建通讯录，存放1000个人的信息和size
+    struct Contact con;   //创建通讯录，存放data指针、capacity和size
     InitContact(&con);    //初始化通讯录
     do
     {
@@ -2443,6 +2443,7 @@ int main()
             SortContact(&con);
             break;
         case EXIT:
+            DestroryContact(&con);//销毁通讯录(释放动态开辟的内存)
             printf("退出通讯录\n");
             break;
         default:
@@ -2452,12 +2453,15 @@ int main()
     return 0;
 }
 
+
 ② contact.h 
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<string.h>
+#include<stdlib.h>
 
-#define MAX 1000
+//#define MAX 1000
+#define DEFAULT_SZ 3
 #define MAX_NAME 15
 #define MAX_SEX 5
 #define MAX_TELE 12
@@ -2485,17 +2489,19 @@ struct PeoInfo
 
 struct Contact
 {
-	struct PeoInfo data[MAX];  //存放10001个信息
+	struct PeoInfo* data;  //存放10001个信息
+	int capacity;//记录通讯录的最大容量
 	int size;  //记录当前已经有的元素个数
 };
 
-void InitContact(struct Contact* ps);                  //初始化
-void AddContact(struct Contact* ps);                //增
-void DelContact(struct Contact* ps);                 //删
-void ModifyContact(struct Contact* ps);           //改
-void SerchContact(const struct Contact* ps);    //查
-void ShowContact(const struct Contact* ps);    //打印
-void SortContact( struct Contact* ps);               //排序
+void InitContact(struct Contact* ps);
+void AddContact(struct Contact* ps);
+void DelContact(struct Contact* ps);
+void ModifyContact(struct Contact* ps);
+void SerchContact(const struct Contact* ps);
+void ShowContact(const struct Contact* ps);
+void SortContact( struct Contact* ps);
+void DestroryContact(struct Contact* ps);
 
  ③ contact.c
 #define _CRT_SECURE_NO_WARNINGS 1
@@ -2516,31 +2522,45 @@ static int FindByName(const struct Contact* ps,char name[MAX_NAME])
 //初始化通讯录
 void InitContact(struct Contact* ps)
 {
-	memset(ps->data, 0, sizeof(ps->data));
-	ps->size = 0;    //设置通讯录最初只有0个元素
+	ps->data = (struct PeoInfo*)malloc(DEFAULT_SZ * sizeof(struct PeoInfo));
+	if (ps->data == NULL)
+	{
+		return 0;
+	}
+	ps->size = 0;
+	ps->capacity = DEFAULT_SZ;
 }
 //增加数据
+void CheckCapacity(struct Contact* ps)
+{
+	if (ps->size == ps->capacity)
+	{
+		struct PeoInfo*ptr = realloc(ps->data, (ps->capacity + 2) * sizeof(struct PeoInfo));
+		if (ptr != NULL)
+		{
+			ps->data = ptr;
+			ps->capacity += 2;
+			printf("增容成功\n");
+		}
+	}
+	
+}
+
 void AddContact(struct Contact* ps)
 {
-	if (ps->size == MAX)
-	{
-		printf("通讯录已满，无法增加\n");
-	}
-	else
-	{
-		printf("请输入名字：");
-		scanf("%s", ps->data[ps->size].name);
-		printf("请输入年龄：");
-		scanf("%d", &(ps->data[ps->size].age));
-		printf("请输入性别：");
-		scanf("%s", ps->data[ps->size].sex);
-		printf("请输入电话：");
-		scanf("%s", ps->data[ps->size].tele);
-		printf("请输入地址：");
-		scanf("%s", ps->data[ps->size].addr);
-		ps->size++;
-		printf("添加成功\n");
-	}
+	CheckCapacity(ps);//检测通讯录容量，满了增加空间，不满什么都不做
+	printf("请输入名字：");
+	scanf("%s", ps->data[ps->size].name);
+	printf("请输入年龄：");
+	scanf("%d", &(ps->data[ps->size].age));
+	printf("请输入性别：");
+	scanf("%s", ps->data[ps->size].sex);
+	printf("请输入电话：");
+	scanf("%s", ps->data[ps->size].tele);
+	printf("请输入地址：");
+	scanf("%s", ps->data[ps->size].addr);
+	ps->size++;
+	printf("添加成功\n");
 }
 //删除数据
 void DelContact(struct Contact* ps)
@@ -2589,10 +2609,11 @@ void ShowContact(const struct Contact* ps)
 //根据名字搜索数据
 void SerchContact(const struct Contact* ps)
 {
+	int pos = 0;
 	char name[MAX_NAME];
 	printf("请输入要查找人的名字：");
 	scanf("%s", name);
-	int pos = FindByName(ps, name);      
+	pos = FindByName(ps, name);      
 	if (pos == -1)
 	{
 		printf("要查找的人不存在\n");
@@ -2611,10 +2632,11 @@ void SerchContact(const struct Contact* ps)
 //修改数据
 void ModifyContact(struct Contact* ps)
 {
+	int pos = 0;
 	char name[MAX_NAME];
 	printf("请输入要修改人的名字：");
 	scanf("%s", name);
-	int pos = FindByName(ps, name);
+	pos = FindByName(ps, name);
 	if (pos == -1)
 	{
 		printf("要修改的人不存在\n");
@@ -2659,4 +2681,10 @@ void SortContact(struct Contact* ps)
 		}
 	}
 	printf("排序完成\n");
+}
+
+void DestroryContact(struct Contact* ps)
+{
+	free(ps->data);
+	ps->data = NULL;
 }
