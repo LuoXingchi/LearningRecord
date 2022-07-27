@@ -2409,7 +2409,7 @@ void menu()
     printf("***** 1. add      2. del    *********\n");
     printf("***** 3. search   4. modify *********\n");
     printf("***** 5. show     6. sort   *********\n");
-    printf("***** 0. exit               *********\n");
+    printf("***** 7.save      0. exit   *********\n");
     printf("*************************************\n");
 }
 int main()
@@ -2443,8 +2443,20 @@ int main()
             SortContact(&con);
             break;
         case EXIT:
+        {
+            int i = 0;
+            printf("是否保存？(1,保存 0,不保存)");
+            scanf("%d", &i);
+            if (i == 1)
+            {
+                SaveContact(&con);
+            }
             DestroryContact(&con);//销毁通讯录(释放动态开辟的内存)
             printf("退出通讯录\n");
+            break;
+        }  
+        case SAVE:
+            SaveContact(&con);
             break;
         default:
             printf("选择错误\n");
@@ -2454,11 +2466,13 @@ int main()
 }
 
 
+
 ② contact.h 
 #define _CRT_SECURE_NO_WARNINGS 1
 #include<stdio.h>
 #include<string.h>
 #include<stdlib.h>
+#include<errno.h>
 
 //#define MAX 1000
 #define DEFAULT_SZ 3
@@ -2475,7 +2489,8 @@ enum Option
 	SEARCH,
 	MODIFY,
 	SHOW,
-	SORT
+	SORT,
+	SAVE
 };
 
 struct PeoInfo
@@ -2489,7 +2504,7 @@ struct PeoInfo
 
 struct Contact
 {
-	struct PeoInfo* data;  //存放10001个信息
+	struct PeoInfo* data;  //存放个人信息
 	int capacity;//记录通讯录的最大容量
 	int size;  //记录当前已经有的元素个数
 };
@@ -2502,6 +2517,7 @@ void SerchContact(const struct Contact* ps);
 void ShowContact(const struct Contact* ps);
 void SortContact( struct Contact* ps);
 void DestroryContact(struct Contact* ps);
+void SaveContact(struct Contact* ps);
 
  ③ contact.c
 #define _CRT_SECURE_NO_WARNINGS 1
@@ -2519,16 +2535,39 @@ static int FindByName(const struct Contact* ps,char name[MAX_NAME])
 	}
 	return -1;
 }
+
+void CheckCapacity(struct Contact* ps);//函数声明
 //初始化通讯录
+void LoadContact(struct Contact* ps)
+{
+	struct PeoInfo tmp = { 0 };
+	FILE* pfRead = fopen("contact.txt", "rb");
+	if (pfRead == NULL)
+	{
+		printf("LoadContact:%s\n", strerror(errno));
+		return;
+	}
+	while (fread(&tmp, sizeof(struct PeoInfo), 1, pfRead))
+	{
+		CheckCapacity(ps);
+		ps->data[ps->size] = tmp;
+		ps->size++;
+	}
+	fclose(pfRead);
+	pfRead = NULL;
+}
+
 void InitContact(struct Contact* ps)
 {
 	ps->data = (struct PeoInfo*)malloc(DEFAULT_SZ * sizeof(struct PeoInfo));
 	if (ps->data == NULL)
 	{
-		return 0;
+		return;
 	}
 	ps->size = 0;
 	ps->capacity = DEFAULT_SZ;
+	//把文件中的信息加载到通讯录中
+	LoadContact(ps);
 }
 //增加数据
 void CheckCapacity(struct Contact* ps)
@@ -2683,8 +2722,27 @@ void SortContact(struct Contact* ps)
 	printf("排序完成\n");
 }
 
+//释放动态空间
 void DestroryContact(struct Contact* ps)
 {
 	free(ps->data);
 	ps->data = NULL;
+}
+
+void SaveContact(struct Contact* ps)
+{
+	FILE* pfWrite = fopen("contact.txt", "wb");
+	if (pfWrite == NULL)
+	{
+		printf("SaveContact:%s\n", strerror(errno));
+		return;
+	}
+	//把通讯录数据写入文件中
+	int i = 0;
+	for (i = 0; i < ps->size; i++)
+	{
+		fwrite(&(ps->data[i]), sizeof(struct PeoInfo), 1, pfWrite);
+	}
+	fclose(pfWrite);
+	pfWrite = NULL;
 }
