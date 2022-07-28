@@ -49,7 +49,7 @@
 49.  实现strstr函数
 50.  实现memmove函数
 51.  通讯录实现(默认可存储三个人的信息，可动态增容)
-
+52.  编写宏，计算结构体中某变量相对于首地址的偏移
 
 
 
@@ -2745,4 +2745,24 @@ void SaveContact(struct Contact* ps)
 	}
 	fclose(pfWrite);
 	pfWrite = NULL;
+}
+
+52.  编写宏，计算结构体中某变量相对于首地址的偏移
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+struct S
+{
+    char c1;
+    int  a;
+    char c2;
+};
+
+#define OFFSETOF(struct_name,member_name) (int)&(((struct S*)0)->member_name)
+
+int main()
+{
+    printf("%d\n", OFFSETOF(struct s, c1));
+    printf("%d\n", OFFSETOF(struct s, a));
+    printf("%d\n", OFFSETOF(struct s, c2));
+    return 0;
 }
