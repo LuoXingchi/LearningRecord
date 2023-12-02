@@ -1,0 +1,3221 @@
+1.  比较两个数值的大小
+2.  判断整数的奇偶性
+3.  输出100以内的奇数
+4.  使用getchar()的注意事项
+5.  判断输入的数是否在0到9之间，是，则打印，否则不打印
+6.  打印1至10
+7.  在有序数组中查找数字及其下标
+8.  字符逐步显示
+9.  模拟用户登录场景，输入三次密码，三次均输入错误后则退出程序
+10.  从小到大排列三个整数
+11.  求两个数的最小公倍数（辗转相除法）
+12.  求100~200内的素数
+13.  求1/1-1/2+1/3_1/4+...+1/99-1/100=？
+14.  输出十个数中的最大值
+15.  打印乘法口诀表
+16.  猜字游戏
+17.  关机小程序
+18.  调用函数家交换两个数值
+19.  从高到低依次打印数字各位数字(函数递归)
+20.  求字符串长度(函数递归)
+21.  求斐波那契数列第n位的值
+22.  汉诺塔(函数递归)
+23.  青蛙跳台阶  (小青蛙每次可跳1或2级台阶，跳n级台阶有多少种跳法)
+24.  冒泡排序
+25.  数组名和地址的关系
+26.  井字棋
+27.  一个非空整型数组，某个元素只出现一次，其余元素均出现两次，找出这个只出现一次的数字
+28.  扫雷
+29.  统计一个整数补码中有几个1
+30.  操作符的使用（与，或，按位取反等）
+31.  打印整数二进制位的奇数位和偶数位
+32.  用函数递归倒置字符串
+33.  判断大端存储还是小端存储
+34.  整型提升
+35.  signed char 数据大小规则
+36.  float 数据存储规则
+37.  利用数组指针打印二维数组
+38.  函数指针数组实现多个简单计算
+39.  回调函数(qsort()函数的使用 及 设计bubble()函数模拟qsort()函数)
+40.  阿里巴巴指针笔试题
+41.  打印1~10000内的自幂数
+42.  打印菱形
+43.  喝汽水：一瓶汽水1元，两个空瓶可以换一瓶汽水，给20元，可以得到几瓶汽水？
+44.  打印杨辉三角
+45.  猜凶手
+46.  左旋字符串
+47.  杨氏矩阵内查找数字(时间复杂度小于O(N))
+48.  实现strcat函数
+49.  实现strstr函数
+50.  实现memmove函数
+51.  通讯录实现(默认可存储三个人的信息，可动态增容)
+52.  编写宏，计算结构体中某变量相对于首地址的偏移
+53.  顺序表的增删查操作算法
+54.  单链表操作算法
+55.  计算1！+2！+……+10！
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+1.  比较两个数值的大小
+①  
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int MAX(int x, int y)
+	{
+	if (x>y)
+	    return x;
+	else
+		return y;
+}
+int main()
+{
+	int num1;
+	int num2;
+	int max;
+	printf("请输入两个整数：");
+	scanf("%d%d", &num1,&num2);
+	max = MAX(num1, num2);
+	printf("最大值为：%d",max);
+	return 0;
+}
+②
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int num1;
+	int num2;
+	int max;
+	printf("请输入两个整数：");
+	scanf("%d%d", &num1, &num2);
+	max = (num1 > num2 ? num1 : num2);
+	printf("最大值为：%d", max);
+	return 0;
+} 
+
+2.  判断整数的奇偶性
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int num;
+	printf("请输入一个整数：");
+	scanf("%d",&num);
+	if (num % 2 == 0)
+	{
+		printf("这个数为偶数");
+	}
+	else
+	{
+		printf("这个数是奇数");
+	}
+	return 0;
+}
+
+3.  输出100以内的奇数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int num1 = 1;
+	while (num1 < 100)
+	{
+		if (num1 % 2 == 1)
+		{
+			printf("%d ", num1);
+		}
+		num1++;
+	}
+	return 0;
+}
+
+4.  使用getchar()的注意事项
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int ret = 0;
+	int ch = 0;
+	char password[20] = {0};
+	printf("请输入密码：");
+	scanf("%s",password);
+	printf("请确认（Y/N）：");
+
+	while ((ch = getchar()) != '\n')           //连续取出缓冲区中的字符以免影响ret的字符读取
+	{                                                        
+		;
+	}
+
+	ret = getchar();
+	if (ret == 'Y')
+	{
+		printf("密码输入正确");
+	}
+	else
+	{
+		printf("密码输入错误");
+	}
+	return 0;
+}
+
+5.  判断输入的数是否在0到9之间，是，则打印，否则不打印
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int ch = 0;
+	while ((ch = getchar()) != EOF)
+	{
+		if (ch < '9' && ch > '0')
+			{
+                                 printf("%c\n",ch);
+                               }
+		continue;
+	}
+	return 0;
+}
+
+6.  打印1至10
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int i = 0;
+	for (i = 1; i <= 10; i++)
+	{
+		printf("%d",i);
+	}
+}
+
+7.  在有序数组中查找数字及其下标
+①（二分法查找）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+int main()
+{
+	int arr[] = { 1,2,3,4,5,6,7,8,9 };
+	int sz = sizeof(arr) / sizeof(arr[0]);//数组中元素的个数
+	int left = 0;//左下标
+	int right = sz - 1;//右下标
+	int k = 0;
+	printf("请输入您要查找的数字(1~9）：");
+	scanf("%d", &k);
+	while (left <= right)
+	{
+		int mid = (left + right) / 2;
+		if (k < arr[mid])
+		{
+			right = mid - 1;
+		}
+		else if (k > arr[mid])
+		{
+			left = mid + 1;
+		}
+		else
+		{
+			printf("找到了！下标是：%d", mid);
+			break;
+		}
+	}
+	if (left > right)
+		printf("找不到");
+	return 0;
+}
+②(调用函数)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int binary_research(int arr[],int k,int sz)        //函数传递数组只传递第一个元素的地址
+{
+	int left = 0;
+	int right = sz-1;
+	while (left <= right)
+	{
+		int mid = (left + right) / 2;
+		if (k < arr[mid])
+		{
+			right = mid - 1;
+		}
+		else if (k > arr[mid])
+		{
+			left = mid + 1;
+		}
+		else
+		{
+			return mid;
+		}
+	}
+	return 1;
+}
+int main()
+{
+	int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+	int k = 9;
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	int ret = binary_research(arr,k,sz);
+	if (ret == 1)
+		printf("找不到指定数字\n");
+	else
+	{
+		printf("找到了！下标是：%d\n",ret);
+	}
+	return 0;
+}
+
+8.  字符逐步显示
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+#include <windows.h>
+#include <stdlib.h>
+int main()
+{
+	char arr1[] = "Happy Birth Day!";
+	char arr2[] = "################";
+	int left = 0;
+	int right = strlen(arr1) - 1;
+	while (left < right)
+	{
+		arr2[left] = arr1[left];
+		arr2[right] = arr1[right];
+		printf("%s",arr2);
+		Sleep(500);
+		system("cls");      //执行系统命令的函数
+		left++;
+		right--;
+	}
+	printf("%s",arr2);
+	return 0;
+}
+
+9.  模拟用户登录场景，输入三次密码，三次均输入错误后则退出程序
+#define _CRT_SECURE_NO_WARNINGS 1
+#include <stdio.h>
+#include <string.h>
+#include <stdlib.h>
+int main()
+{
+	int i = 0;
+	char password[20] = { 0 };
+	printf("请输入密码：");
+	for (i = 0; i < 3; i++)
+		{
+		scanf("%s", password);
+		if (strcmp(password, "3104118588lxc") == 0)   //不能用‘==’来比较两个字符是否相等，要用库函数strcmp()来比较
+		    {
+		    printf("密码输入正确");
+			break;
+		    }
+		else
+		    {
+			system("cls");
+			printf("密码输入错误，请重新输入:");
+	     	}
+	    }
+	if (i == 3)
+	{
+		system("cls");
+		printf("三次密码均输入错误，退出程序");
+	}	
+	return 0;
+}
+
+10.  从小到大排列三个整数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int num1 = 0;
+	int num2 = 0;
+	int num3 = 0;
+	printf("请输入三个整数：");
+	scanf("%d%d%d",&num1,&num2,&num3);
+	if (num1 < num2)
+	{
+		int num4 = num2;
+		num2 = num1;
+		num1 = num4;
+	}
+	if (num1 < num3)
+	{
+		int num4 = num3;
+		num3 = num1;
+		num1 = num4;
+	}
+	if (num2 < num3)
+	{
+		int num4 = num3;
+		num3 = num2;
+		num2 = num4;
+	}
+	printf("从大到小排列为：%d %d %d",num1,num2,num3);
+	return 0;
+}
+
+11.  求两个数的最小公倍数（辗转相除法）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int num1 = 0;
+	int num2 = 0;
+	int num3 = 0;
+	printf("请输入两个整数：");
+	scanf("%d%d",&num1,&num2);
+	while (num1 % num2)
+	{
+		num3 = num1 % num2;
+		num1 = num2;
+		num2 = num3;
+	}
+	printf("最小公倍数为：%d",num2);
+	return 0;
+}
+
+12.  求100~200内的素数
+①（试除法）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int i = 0;
+	int count = 0;
+	printf("100~200内的素数为：");
+	for (i = 101; i <= 200; i += 2)
+	{
+		int j = 0;
+		for (j = 2; j <= sqrt(i); j++)                  //一个整数，若不是素数，则i必有因子 <= 根号i
+		{
+			if (i % j == 0)
+			{
+				break;
+			}
+		}
+		if (j > sqrt(i))
+		{
+			printf("%d ",i);
+			count++;
+		}
+	}
+	printf("\n素数的个数为：%d个", count);
+	return 0;
+}
+②(调用函数)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<math.h>
+int Sushu(int x)
+{
+	int j = 0;
+	for (j = 2; j <= sqrt(x); j++)
+	{
+		if (x % j == 0)
+			return 0;;
+	}
+		return 1;
+}
+int main()
+{
+	int i = 0;
+	int count = 0;
+	printf("100~200内素数为：");
+	for (i = 101; i <= 200; i+=2)
+	{
+		if (Sushu(i) == 1)
+		{
+			printf("%d ", i);
+			count++;
+		}
+	}
+	printf("\n");
+	printf("素数的个数为：%d",count);
+	return 0;
+}
+
+13.  求1/1-1/2+1/3_1/4+...+1/99-1/100=？
+①
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int i = 0;
+	double sum = 0.0;
+	for (i = 1; i <= 100; i++)
+	{
+		if (i % 2 == 1)
+		{
+			sum = sum + 1.0 / i;
+		}
+		else
+		{
+			sum = sum - 1.0 / i;
+		}
+	}
+	printf("1/1-1/2+1/3_1/4+...+1/99-1/100=%lf",sum);
+	return 0;
+}
+②
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int i = 0;
+	double sum = 0.0;
+	int flag = 1;
+	for (i = 1; i <= 100; i++)
+	{
+		sum = sum + flag * 1.0 / i;
+		flag = -flag;
+	}
+	printf("1/1-1/2+1/3_1/4+...+1/99-1/100=%lf",sum);
+	return 0;
+}
+
+14.  输出十个数中的最大值
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+	int i = 0;
+	int arr[10] = { 0 };
+	printf("请输入十个整数：");
+	for (i = 0; i < 10; i++)
+	{
+		scanf("%d", &arr[i]);
+	}
+	int max = arr[0];
+	for (i = 1; i < 10; i++)
+	{
+		if (arr[i] > max)
+		{
+			max = arr[i];
+		}
+	}
+	printf("最大值是：%d",max);
+	return 0;
+}
+
+15.  打印乘法口诀表
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int i = 0;
+	int j = 0;
+	for (i = 1; i <= 9; i++)
+	{
+		for (j = 1; j <= i; j++)
+		{
+			printf("%d*%d=%-2d ",i,j,i*j);               //%-2d---打印两位整数，且左对齐
+		}
+		printf("\n");
+	}
+	return 0;
+}
+
+16.  猜字游戏
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>     //使用rand()函数
+#include<time.h>
+#include <windows.h>
+void menu()
+{
+          printf("********************************\n");
+	printf("******1. play      0.exit*********\n");
+	printf("********************************\n");
+}
+void game()
+{
+	int guess = 0;
+	int ret = 0;
+	ret = rand() % 100 + 1;        //生成1~100的随机数，调用前需引用srand
+	while (1)
+	{
+		printf("请猜数字：");
+		scanf("%d", &guess);
+		if (guess > ret)
+		{
+			printf("猜大了\n");
+		}
+		else if (guess < ret)
+		{
+			printf("猜小了\n");
+		}
+		else
+		{
+			printf("恭喜你!猜对了\n");
+			break;
+		}
+	}
+	system("cls");
+}
+int main()
+{
+	srand((unsigned)time(NULL));                 //引入时间戳
+	int input = 0;
+	do
+	{
+		menu();
+		printf("请选择(1或2)：");
+		scanf("%d",&input);
+		switch (input)
+		{
+		case 1:
+			game();
+			break;
+		case 0:
+			printf("退出游戏\n");
+			break;
+		default:
+			printf("选择错误，请重新输入\n");
+			break;
+		}
+	} while (input);
+	return 0;
+}
+
+17.  关机小程序
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include <windows.h>
+int main()
+{
+	char input[20] = {0};
+	system("shutdown -s -t 60");
+	again:
+	printf("请注意，您的电脑将在一分钟后关机，输入‘我是猪’ 则取消关机\n请输入：");
+	scanf("%s",input);
+	if (strcmp(input, "我是猪") == 0)
+	{
+		system("cls");
+		printf("地球人都知道");
+		system("shutdown -a");
+	}
+	else
+	{
+		goto again;                        //尽量不适用goto语句
+	}
+	return 0;
+}
+
+18.  调用函数家交换两个数值
+①（用指针）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+void Swap(int* pa, int* pb)
+{
+	int tmp = 0;
+	tmp = *pa;
+	*pa = *pb;
+	*pb = tmp;
+}
+int main()
+{
+	int a = 10;
+	int b = 20;
+	printf("a=%d,b=%d\n",a,b);
+	Swap(&a, &b);
+	printf("a=%d,b=%d\n", a, b);
+	return 0;
+}
+②(按位异或)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int a = 5;
+	int b = 3;
+	a = a ^ b;         
+	b = a ^ b;
+	a = a ^ b;
+	printf("%d %d",a,b);
+	return 0;
+}
+
+19.  从高到低依次打印数字各位数字(函数递归)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+void print(n)
+{
+	if (n > 9)
+	{
+		print(n / 10);
+	}
+	printf("%d ",n%10);
+}
+int main()
+{
+	unsigned int num = 0;
+	printf("请输入一个整数：");
+	scanf("%d", &num);
+	print(num);
+	return 0;
+}
+
+20.  求字符串长度(函数递归)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int my_strlen(char* arr)
+{
+	if (*arr != 0)
+	{
+		return 1 + my_strlen(arr + 1);
+	}
+	else
+		return 0;
+}
+int main()
+{
+	char arr[] = "lxc";
+	int len = my_strlen(arr);
+	printf("字符串的长度为：%d",len);
+	return 0;
+}
+
+21.  求斐波那契数列第n位的值
+①(函数递归)---效率很低
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int Fib(int n)
+{
+	if (n <= 2)
+	{
+		return 1;
+	}
+	else
+		return Fib(n - 1) + Fib(n - 2);
+}
+int main()
+{
+	int n = 0;
+	int ret = 0;
+	scanf("%d",&n);
+	ret = Fib(n);
+	printf("ret=%d\n",ret);
+	return 0;
+}
+②(循环)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int Fib(int n)
+{
+	int a = 1;
+	int b = 1;
+	int c = 1;
+	while (n > 2)
+	{
+		c = a + b;
+		a = b;
+		b = c;
+		n--;
+	}
+	return c;
+}
+int main()
+{
+	int n = 0;
+	int ret = 0;
+	printf("查询斐波那契数列中元素位数为:");
+	scanf("%d",&n);
+	ret = Fib(n);
+	printf("第%d位斐波那契数列的元素为：%d",n,ret);
+	return 0;
+}
+
+22.  汉诺塔(函数递归)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int  i = 1;
+void HanoiTower(char A, char B, char C, int n)
+{
+	if (n == 1)
+	{
+		printf("第%d步，把第%d个圆盘从%c--->%c\n",i++, n, A, C);
+	}
+	else
+	{
+		HanoiTower(A, C, B, n - 1);                                                          //将n-1个圆盘从A柱借助于C柱移动到B柱上
+		printf("第%d步，把第%d个圆盘从%c--->%c\n",i++, n, A, C);       //将A柱子最后一个圆盘移动到C柱上
+		HanoiTower(B, A, C, n - 1);                                                          //将n-1个圆盘从B柱借助于A柱移动到C柱上
+	}
+}
+int main()
+{
+	int n = 0;
+	printf("输入A柱子上的圆盘个数：");
+	scanf("%d", &n);
+	HanoiTower('A', 'B', 'C', n);                                                                      //将n个圆盘从A柱借助于B柱移动到C柱上
+	return 0;
+}
+
+
+23.  青蛙跳台阶  (小青蛙每次可跳1或2级台阶，跳n级台阶有多少种跳法)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int step(int n)
+{
+	if (n == 1)
+		return n;
+	else
+		return step(n - 2) + step(n - 1);
+}
+int main()
+{
+	int n = 0;
+	int count = 0;
+	printf("请输入小青蛙跳的台阶数：");
+	scanf("%d",&n);
+	count = step(n);
+	printf("小青蛙跳上%d级台阶共有%d种跳法",n,count);
+	return 0;
+}
+
+24.  冒泡排序
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<windows.h>
+void Bubble(int arr[], int sz,int style)
+{
+	int i = 0;
+	int flag = 1;
+	for (i = 0; i < sz - 1 ; i++)
+	{
+		int j = 0;
+		if (style == 1)                                                            //倒序排列
+		{
+			for (j = 0; j < sz - 1 - i; j++)
+			{
+				if (arr[j] < arr[j + 1])
+				{
+					int tmp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = tmp;
+					flag = 0;
+				}
+			}
+			if (flag == 1)
+			{
+				break;
+			}
+		}
+		else                                                                            //顺序排列
+		{
+			for (j = 0; j < sz - 1 - i; j++)
+			{
+				if (arr[j] > arr[j + 1])
+				{
+					int tmp = arr[j];
+					arr[j] = arr[j + 1];
+					arr[j + 1] = tmp;
+					flag = 0;
+				}
+			}
+			if (flag == 1)
+			{
+				break;
+			}
+		}
+	}
+}
+int main()
+{
+	int num = 0;
+	int arr[10] = {0};
+	int style = 0;
+	int i = 0;
+	printf("请输入十个待排序的数字：");
+	for (num = 0; num < 10; num++)
+	{
+		scanf("%d", &arr[num]);
+	}
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	system("cls");
+	printf("待排序数列为：");
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ", arr[i]);
+	}
+	printf("\n");
+	printf("请选择排序方式(1.顺序   2.倒序)：");
+	scanf("%d",&style);
+	while(style != 1 && style != 2)
+	{
+		system("cls");
+		printf("待排序数列为：");
+		for (i = 0; i < sz; i++)
+		{
+			printf("%d ", arr[i]);
+		}
+		printf("\n");
+		printf("输入错误，请重新选择排序方式(1.顺序   2.倒序)：");
+		scanf("%d",&style);
+	}
+	if (style == 1)
+	{
+		Bubble(arr, sz,0);
+	}
+	else
+	{
+		Bubble(arr, sz,1);
+	}
+	printf("排序结果为：");
+	for (i = 0; i < sz; i++)
+	{
+		printf("%d ",arr[i]);
+	}
+	return 0;
+}
+
+25.  数组名和地址的关系
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int arr[7] = { 0 };
+	printf("%p\n", arr);               //数组名等于首元素地址
+	printf("%p\n", arr + 1);
+	printf("%p\n", &arr[0]);        //首元素地址
+	printf("%p\n", &arr[0] +1);
+	printf("%p\n", &arr);            //&arr表示数组地址
+	printf("%p\n", &arr+1);
+	return 0;
+}
+注：数组名等于数组首元素的地址(  sizeof(数组名)求数组所占空间  和  &数组名 两种情况例外)
+
+26.  井字棋
+注：本程序分为三个文档： ① test.c :在本文件内设计游戏流程
+                                         ② game.h :在本文件内进行函数的声明及头文件的引用
+                                         ③ game.c :在本文件内设计游戏中函数的具体实现
+① test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"game.h"
+void menu()                                                                 //打印菜单
+{
+	printf("****************************\n");
+	printf("*****1.play   0.exit********\n");
+	printf("****************************\n");
+}
+
+void game()
+{
+	char ret = 0;
+	char board[ROW][COL] = { 0 };
+	InitBoard(board,ROW,COL);                              //初始化棋盘
+	DisplayBoard(board,ROW,COL);                        //打印棋盘
+	while (1)
+	{
+		
+		system("cls");                                            //清屏
+		DisplayBoard(board, ROW, COL);            //打印棋盘
+		Player(board,ROW,COL);                          //玩家下棋
+		DisplayBoard(board, ROW, COL);            //打印棋盘
+		ret = Judge(board, ROW, COL);                //判断输赢
+		if (ret != 'c')
+		{
+			break;
+		}
+		system("cls");                                                    //清屏
+		DisplayBoard(board, ROW, COL);                     //打印棋盘
+		Computer(board, ROW, COL);                         //电脑下棋
+		DisplayBoard(board, ROW, COL);                     //打印棋盘
+		ret = Judge(board, ROW, COL);                      //判断输赢
+		if (ret != 'c')
+		{
+			break;
+		}
+	}
+	if (ret == '*')
+	{
+		system("cls");                                                    //清屏
+		DisplayBoard(board, ROW, COL);                     //打印棋盘
+		printf("玩家赢\n");
+	}
+	else if(ret=='#')
+	{
+		system("cls");                                                    //清屏
+		DisplayBoard(board, ROW, COL);                     //打印棋盘
+		printf("电脑赢\n");
+	}
+	else
+	{
+		system("cls");                                                    //清屏
+		DisplayBoard(board, ROW, COL);                     //打印棋盘
+		printf("平局");
+	}
+}
+
+void test()
+{
+	srand((unsigned int)time(NULL));
+	int input = 0;
+	int n = 1;
+	int count = 0;
+	do
+	{
+		if (count > 0)
+		{
+			do
+			{
+				printf("是否继续游戏？(1.再来一局  0.退出游戏)\n请输入：");
+				scanf("%d", &n);
+				system("cls");
+				if (n == 0)
+				{
+					printf("游戏结束");
+					break;
+				}
+				else if (n != 1 && n != 0)
+				{
+					printf("输入错误，请重新选择");
+				}
+				else
+					break;
+			} while (n);
+		}
+		if (n == 0)
+			break;
+		system("cls");
+		menu();
+		printf("请选择：");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+		{
+			game();
+			count++;
+			break;
+		}
+		case 0:
+		{
+			printf("退出游戏\n");
+			break;
+		}
+		default:
+			printf("输入错误，请重新选择\n");
+			break;
+		}
+	} while (input);
+}
+
+int main()
+{
+	test();
+	return 0;
+}
+
+② game.h
+#include<stdio.h>
+#include<windows.h>
+#include<stdlib.h>
+#include<time.h>
+#define ROW 3
+#define COL 3
+//初始化棋盘
+void InitBoard(char board[ROW][COL], int row, int col);    
+//打印棋盘
+void DisplayBoard(char board[ROW][COL], int row,int col);     
+//玩家下棋
+void Player(char board[ROW][COL], int row, int col);    
+//电脑下棋
+void Computer(char board[ROW][COL], int row, int col);      
+//根据返回值判断输赢：'c':继续  'Q':平局  '*':玩家赢  '#'：电脑赢
+char Judge(char board[ROW][COL], int row, int col);     
+      
+ ③ game.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"game.h"
+void InitBoard(char board[ROW][COL], int row, int col)                 //初始化棋盘
+{
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < row; i++)
+	{
+		for (j = 0; j < col; j++)
+		{
+			board[i][j] = ' ';
+		}
+	}
+}
+
+void DisplayBoard(char board[ROW][COL], int row, int col)         //打印棋盘
+{
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < row; i++)
+	{
+		for (j = 0; j < col; j++)
+		{
+			printf(" %c ",board[i][j]);
+			if (j < col - 1)
+			{
+				printf("|");
+			}
+		}
+		printf("\n");
+		if (i < row - 1)
+		{
+			for (j = 0; j < col; j++)
+			{
+				printf("---");
+				if (j < col - 1)
+					printf("|");
+			}
+		}
+		printf("\n");
+	}
+}
+
+void Player(char board[ROW][COL], int row, int col)                           // 玩家下棋
+{
+	int x = 0;
+	int y = 0;
+	while (1)
+	{
+		printf("<玩家下棋>\n请输入您落子的坐标：");
+		scanf("%d%d", &x, &y);
+		if (x >= 1 && x <= row && y >= 1 && y <= col)
+		{
+			if (board[x - 1][y - 1] == ' ')
+			{
+				board[x - 1][y - 1] = '*';
+				break;
+			}
+			else
+			{
+				printf("该坐标被占用\n");
+			}
+		}
+		else
+		{
+			printf("坐标非法，请重新输入：\n");
+		}
+	}
+}
+
+void Computer(char board[ROW][COL], int row, int col)                  //电脑下棋
+{
+	int x = 0;
+	int y = 0;
+	printf("电脑下棋\n");
+	while (1)
+	{
+		x = rand() % row;    //控制落子范围
+		y = rand() % col;
+		if (board[x][y] == ' ')
+		{
+			board[x][y] = '#';
+			break;
+		}
+	}
+}
+
+int Isfull(char board[ROW][COL], int row, int col)        //返回1表示棋盘满了，返回0表示棋盘没满
+{
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < row; i++)
+	{
+		for (j = 0; j < col; j++)
+		{
+			if (board[i][j] == ' ')
+			{
+				return 0;
+			}
+		}
+	}
+	return 1;
+}
+
+char Judge(char board[ROW][COL], int row, int col)                     //判断输赢
+{
+	int i = 0;
+	for (i = 0; i < row; i++)         //判断横向
+	{
+		if (board[i][0] == board[i][1] && board[i][1] == board[i][2] && board[i][2] != ' ')
+		{
+			return board[i][0];
+		}
+	}
+	for (i = 0; i < col; i++)         //判断竖向
+		if (board[0][i] == board[1][i] &&  board[1][i] == board[2][i] && board[2][i] != ' ')
+		{
+			return board[0][i];
+		}
+	if (board[0][0] == board[1][1] &&  board[1][1] == board[2][2] && board[2][2] != ' ')  //判断对角线方向
+	{
+		return board[0][0];
+	}
+	if (board[0][2] == board[1][1] &&  board[1][1] == board[2][0] && board[2][0] != ' ')  //判断对角线方向
+	{
+		return board[2][0];
+	}
+	if(1 == Isfull(board, ROW, COL))
+	{
+		return 'Q';
+	}
+	return 'c';
+}
+
+27. 一个非空整型数组，某个元素只出现一次，其余元素均出现两次，找出这个只出现一次的数字
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+	int arr[] = { 1,2,3,4,5,4,3,2,1 };
+	int i = 0;
+	int ret = 0;
+	int sz = sizeof(arr) / sizeof(arr[0]);
+	for (i = 0; i < sz; i++)                    
+	{
+		ret = ret ^ arr[i];                        //异或具有交换律，且 0^n=n , n^n=0
+	}
+	printf("只出现一次的数字为：%d",ret);
+	return 0;
+}
+
+28.  扫雷
+注：本程序分为三个文档： ① test.c :在本文件内设计游戏流程
+                                         ② game.h :在本文件内进行函数的声明及头文件的引用
+                                         ③ game.c :在本文件内设计游戏中函数的具体实现
+
+① test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"game.h"
+
+void menu()                                  //打印菜单
+{
+    printf("****************************\n");
+    printf("*****1.play   0.exit********\n");
+    printf("****************************\n");
+}
+
+void game()
+{
+	char mine[ROWS][COLS] = { 0 };           //存雷的信息
+	char show[ROWS][COLS] = { 0 };           //排雷的信息
+	InitBoard(mine, ROWS, COLS,'0');         //初始化
+	InitBoard(show, ROWS, COLS,'*');
+	DisplayBoard(show, ROW, COL);            //打印
+	SetMine(mine, ROW, COL);                 //布雷
+	DisplayBoard(mine, ROW, COL);
+	FindMine(mine,show,ROW,COL);             //扫雷
+}
+
+void test()
+{
+	srand((unsigned)time(NULL));
+	int i = 0;
+	int input = 0;
+	int count = 0;
+	int n = 1;
+	do
+	{
+		if (count > 0)
+		{
+			do
+			{
+				printf("是否继续游戏？(1.再来一局  0.退出游戏)\n请输入：");
+				scanf("%d", &n);
+				system("cls");
+				if (n == 0)
+				{
+					printf("游戏结束");
+					break;
+				}
+				else if (n != 1 && n != 0)
+				{
+					printf("输入错误，请重新选择");
+				}
+				else
+					break;
+			} while (n);
+		}
+		if (n == 0)
+		{
+			break;
+		}
+		system("cls");
+		menu();
+		printf("请选择：");
+		scanf("%d", &input);
+		switch (input)
+		{
+		case 1:
+		{
+			game();
+			break;
+		}
+		case 0:
+		{
+			printf("退出游戏\n");
+			break;
+		}
+		default:
+			printf("输入错误，请重新选择\n");
+			break;
+		}
+		if (input == 1)
+		{
+			do
+			{
+				printf("再玩一局？(1.确定  0.退出)\n");
+				printf("请选择：");
+				scanf("%d", &i);
+				switch (i)
+				{
+				case 0:
+					break;
+				case 1:
+					break;
+				default:
+					printf("输入错误，请重新输入\n");
+			    }
+				if (i == 0 || i == 1)
+				{
+					break;
+				}
+			} while (1);
+		}
+		if (i == 0)
+		{
+			system("cls");
+			printf("游戏结束\n");
+			break;
+		}
+	} while (input);
+}
+
+int main()
+{
+    test();
+    return 0;
+}
+
+② game.h
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<windows.h>
+#define ROW 9
+#define COL 9
+#define EASY_COUNT 10
+#define ROWS  ROW +2
+#define COLS  COL +2
+void InitBoard(char board[ROWS][COLS], int rows, int cols,char set);
+void DisplayBoard(char board[ROWS][COLS], int row, int col);
+void SetMine(char board[ROWS][COLS], int row, int col);
+void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col);
+
+③ game.c
+#include"game.h"
+void InitBoard(char board[ROWS][COLS], int rows, int cols,char set)    //初始化界面
+{
+	int i = 0;
+	int j = 0;
+	for (i = 0; i < rows; i++)
+	{
+		for (j = 0; j < cols; j++)
+		{
+			board[i][j] = set;
+		}
+	}
+}
+
+void DisplayBoard(char board[ROWS][COLS], int row, int col)     //显示界面
+{
+	int i = 0;
+	int j = 0;
+	printf("\n");
+	for (i = 0; i <= col; i++)             //打印列号
+	{
+		printf("%d ",i);
+	}
+	printf("%d",0);
+	printf("\n");
+	for (i = 1; i <= row; i++)
+	{
+		printf("%d ",i);
+		for (j = 1; j <= col; j++)
+		{
+			printf("%c ", board[i][j]); 
+		}
+		printf("%d",i);
+		printf("\n");
+	}
+	for (i = 0; i <= col; i++)             //打印列号
+	{
+		printf("%d ", i);
+	}
+	printf("%d", 0);
+	printf("\n");
+}
+
+void SetMine(char board[ROWS][COLS], int row, int col)     //设雷
+{
+	int count = EASY_COUNT;
+	while (count)
+	{
+		int x = rand() % row + 1;
+		int y = rand() % col + 1;
+		if (board[x][y] == '0')
+		{
+			board[x][y] = '1';
+			count--;
+		}
+	}
+}
+
+int get_mine_count(char mine[ROWS][COLS], int x, int y)     //显示周围雷数
+{
+	int i = 0;
+	int j = 0;
+	int count = 0;
+	for (i = (x - 1); i <= (x + 1); i++)
+	{
+		for (j = (y - 1); j <= (y + 1); j++)
+		{
+			count = count + (mine[i][j] - '0');
+		}
+	}
+	return count;
+}
+
+void MarkShow(char show[ROWS][COLS], int row, int col)    //标记雷
+{
+	int q = 0;
+	int m = 0;
+	int n = 0;
+	do
+	{
+		printf("是否标记雷？(1:标记  0：跳过)：");
+		scanf("%d", &q);
+		if (q != 1 && q != 0)
+		{
+			printf("输入错误，请重新输入\n");
+		}
+		else if (q == 1)
+		{
+			printf("请输入标记雷的坐标：");
+			scanf("%d%d", &m, &n);
+			system("cls");
+			show[m][n] = '#';
+			DisplayBoard(show, row, col);
+			MarkShow(show, ROW, COL);
+			break;
+		}
+	} while (q);
+}
+
+void AutoShow(char show[ROWS][COLS],char mine[ROWS][COLS] , int x, int y)       //自动展示
+{
+	int ret = get_mine_count(mine,x,y);
+	if (ret == 0)
+	{
+		show[x][y] = ' ';
+		int i = 0;
+		int j = 0;
+		for (i = -1; i <= 1; i++)
+		{
+			for (j = -1; j <= 1; j++)
+			{
+				if ((x + i > 0) && (x + i < ROWS) && (y + j > 0) && (y + j < COLS) && (show[x + i][y + j] == '*'))
+				{
+					AutoShow(show, mine, x+i, y+j);
+				}
+			}
+		}
+	}
+	else
+	{
+		show[x][y] = ret + '0';
+	}
+}
+
+void FindMine(char mine[ROWS][COLS], char show[ROWS][COLS], int row, int col)     //扫雷
+{
+	int win = 0;
+	int x = 0;
+	int y = 0;
+	while (win<row*col-EASY_COUNT)
+	{
+		
+		printf("请输入排雷的坐标：");
+		scanf("%d%d", &x, &y);
+		if (x >= 1 && x <= row && y >= 1 && y <= col)
+		{
+			if (mine[x][y] == '1')
+			{
+				system("cls");
+				DisplayBoard(mine,row,col);
+				printf("很遗憾，您踩雷了\n");
+				break;
+			}
+			else if (show[x][y] != '*')
+			{
+				printf("该位置已扫完，请重新输入：\n");
+				continue;
+			}
+			else
+			{
+				system("cls");
+				int count = get_mine_count(mine,x,y);
+				show[x][y] = count + '0';
+				AutoShow(show,mine, x, y);
+				DisplayBoard(show, row, col);
+				MarkShow(show, ROW, COL);
+			}
+		}
+		else
+		{
+			printf("输入坐标错误，请重新输入：\n");
+		}
+	}
+	if (win == win < row * col - EASY_COUNT)
+	{
+		printf("恭喜你排雷成功！");
+		DisplayBoard(show, row, col);
+	}
+}
+
+29.  统计一个整数补码中有几个1
+①
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int num = 0;
+    int i = 0;
+    int count = 0;
+    printf("请输入一个整数：");
+    scanf("%d",&num);
+    for (i = 0; i < 32; i++)
+    {
+        if (1 == ((num >> 1) & 1))
+        {
+            count++;
+        }
+    }
+    printf("该数补码中共%d个1",count);
+    return 0;
+}
+②优化后
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int num = 0;
+    int i = 0;
+    int count = 0;
+    printf("请输入一个整数：");
+    scanf("%d",&num);
+    while (num)
+    {
+        num = num & (num - 1);
+        count++;
+    }
+    printf("该数补码中共%d个1",count);
+    return 0;
+}
+
+30.  操作符的使用（与，或，按位取反等）
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int a = 11;              //1011
+    a = a | (1 << 2);        //1111（第三位变成1）
+    printf("%d\n",a);
+    a = a & (~(1 << 2));     //1011 (第三位变成0)
+    printf("%d\n",a);
+    return 0;
+}
+
+31.  打印整数二进制位的奇数位和偶数位
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int count(int n)
+{
+    int i = 0;
+    printf("偶数位为：\n");
+    for (i = 30; i >= 0; i -= 2)
+    {
+        int number = (n >> i) & 1;
+        printf("%d ",number);
+    }
+    printf("\n");
+    printf("奇数位为：\n");
+    for (i = 31; i >= 1; i -= 2)
+    {
+        int number = (n >> i) & 1;
+        printf("%d ", number);
+    }
+    printf("\n");
+}
+int main()
+{
+    int n = 0;
+    printf("请输入一个整数：");
+    scanf("%d",&n);
+    count(n);
+    return 0;
+}
+
+32.  倒置字符串
+①用函数递归
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+void reverse_string(char arr[])
+{
+    char tmp = arr[0];
+    int len = strlen(arr);
+    arr[0] = arr[len - 1];
+    arr[len - 1] = '\0';
+    if (strlen(arr+1) >= 2)
+    {
+        reverse_string(arr+1);
+    }
+    arr[len - 1] = tmp;
+}
+int main()
+{
+    char arr[] = "abcdefg";
+    reverse_string(arr);
+    printf("%s\n",arr);
+    return 0;
+}
+②指针
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+void reverse(char* str)
+{
+    int len = strlen(str);
+    char* left = str;
+    char* right = str + len - 1;
+    while (left < right)
+    {
+        char tmp = *left;
+        *left = *right;
+        *right = tmp;
+        left++;
+        right--;
+    }
+}
+int main()
+{
+    char arr[256] = { 0 };
+    printf("请输入字符串：");
+  //scanf("%s", arr);
+    gets(arr);
+    printf("您输入的字符串为：%s\n",arr);
+    reverse(arr);
+    printf("倒置后：%s\n",arr);
+    return 0;
+}
+
+
+33.  判断大端存储还是小端存储
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int check()
+{
+    int a = 1;
+    char* p = (char*)&a;
+    return *p;
+}
+int main()
+{
+    int ret = check();
+    if (ret == 1)
+    {
+        printf("小端存储\n");    //从低地址开始，先存低序字节，再存高序字节
+    }
+    else
+    {
+        printf("大端存储\n");    //从低地址开始，现存高序字节，再存低序字节
+    }
+    return 0;
+}
+
+34.   整型提升
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                              //整型提升：无符号数前面补0，有符号数前面补符号位
+    char a = -1;               //补码11111111111111111111111111111111
+    signed char b = -1;        //补码11111111111111111111111111111111
+    unsigned char c = -1;      //补码00000000000000000000000011111111
+    printf("a=%d,b=%d,c=%d",a,b,c);
+    return 0;
+}
+
+35.  signed char 数据存储规则
+
+//signed char 数据大小排序：... 0 1 2 ... 126 127 -128 -127 ... -3 -2 -1 0 1 2 ...
+
+①
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                    
+    //signed char 数据大小排序：... 0 1 2 ... 126 127 -128 -127 ... -3 -2 -1 0 1 2 ...
+    char a = 128;          
+    printf("a=%d\n",a);
+    return 0;
+}
+②
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                    
+    char a[1000];
+    int i;
+    for (i = 0; i < 1000; i++)
+    {
+        a[i] = -1 - i;
+    }
+    printf("%d\n",strlen(a));
+    return 0;
+}
+
+36.  flost 数据存储规则
+
+//9:float 型存储码为： 0         10000010     00100000000000000000000 
+//                  符号位         指数            小数点后数值
+//指数部分全为0时，为+/-0         指数部分全为1时，为+-无穷大
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{                    
+    int n = 9;                   
+    float* p = (float*)&n;       
+    printf("n的值为：%d\n",n);    //00000000 00000000 00000000 00001001
+    printf("*p的值为：%f\n",*p);  //0 000000000 00000000000000000001001
+    *p = 9.0;
+    printf("n的值为：%d\n",n);    //01000001000100000000000000000000
+    printf("*p的值为：%f\n",*p);  //0 10000010 00100000000000000000000
+    return 0;
+}
+
+37.  利用数组指针打印二维数组
+
+//int *arr[10]------指针数组(arr是一个数组，数组有十个元素，每个元素的类型是int*)
+//int (*arr)[10]------数组指针(arr是一个指针，该指针指向一个数组，数组有十个元素，每个元素的类型是int)
+//int(*arr[10])[5]------(arr是一个数组，该数组有十个元素，每个元素是一个数组指针，数组指针指向的数组有五个元素，每个元素的类型是int) 
+
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+void printf1(int (*p)[5],int x,int y)
+{
+    int i = 0;
+    for (i = 0; i < x; i++)
+    {
+        int j = 0;
+        for (j = 0; j < y; j++)
+        {
+            printf("%d ",p[i][j]);
+          //printf("%d ", *(*(p + i) + j));
+          //printf("%d ", *(p[i] + j));
+          //printf("%d ", (*(p + i))[j]);
+        }
+        printf("\n");
+    }
+}
+int main()
+{                    
+    int arr[3][5] = { {1,2,3,4,5}, {2,3,4,5,6},{3,4,5,6,7} };
+    printf1(arr, 3, 5);
+    return 0;
+}
+
+38.  函数指针数组实现多个简单计算
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+void menu()
+{
+    printf("**********************************\n");
+    printf("******1.Add        2.Sub**********\n");
+    printf("******3.Mul        4.Div**********\n");
+    printf("******5.Xor        0.exit*********\n");
+    printf("**********************************\n");
+}
+int Add(int x,int y)
+{
+    return x + y;
+}
+int Sub(int x, int y)
+{
+    return x - y;
+}
+int Mul(int x, int y)
+{
+    return x * y;
+}
+int Div(int x, int y)
+{
+    return x / y;
+}
+int Xor(int x, int y)
+{
+    return x ^ y;
+}
+int main()
+{                    
+    int input = 0;
+    int x = 0;
+    int y = 0;
+    int (*pfArr[6])(int, int) = { 0,Add,Sub,Mul,Div,Xor };   //函数指针数组
+    do
+    {
+        menu();
+        printf("请选择计算类型：");
+        scanf("%d",&input);
+        if (input >= 1 && input <= 6)
+        {
+            printf("请输入两个操作数：");
+            scanf("%d%d",&x,&y);
+            int ret = pfArr[input](x, y);
+            printf("结果为：%d\n",ret);
+        }
+        else if (input == 0)
+        {
+            printf("退出");
+        }
+        else
+        {
+            printf("输入错误，请重新输入");
+        }
+    } while (input);
+    return 0;
+}
+
+39.  回调函数(qsort()函数的使用 及 设计bubble()函数模拟qsort()函数)
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<stdlib.h>
+#include<string.h>
+
+int cmp_int(const void* e1, const void* e2)    //void*类型指针可以接收任何类型的地址(不可解引用且不能加减)
+{
+    return (int)(*(int*)e1 - *(int*)e2);
+}
+
+void test1()    //整型数据排序
+{
+    int i = 0;
+    int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    qsort(arr, sz, sizeof(arr[0]), cmp_int);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
+
+
+int cmp_float(const void* e1, const void* e2)
+{
+    return (int)*(float*)e1 - *(float*)e2;
+}
+
+void test2()  //浮点型数据排序
+{
+    int i = 0;
+    float f[10] = { 9.0,8.0,7.0,6.0,5.0,4.0,3.0,2.0,1.0,0 };
+    int sz = sizeof(f) / sizeof(f[0]);
+    qsort(f, sz, sizeof(f[0]), cmp_float);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%f ", f[i]);
+    }
+}
+
+
+
+struct Stu                  //定义一个结构体
+{
+    char name[20];
+    int age;
+};
+
+int cmp_stu_by_age(const void* e1, const void* e2)                  //按age给结构体排序
+{
+    return  ((struct Stu*)e1)->age - ((struct Stu*)e2)->age;
+}
+
+int cmp_stu_by_name(const void* e1, const void* e2)                 //按name给结构体排序
+{
+    return strcmp(((struct Stu*)e1)->name, ((struct Stu*)e2)->name);
+}
+
+void test3()
+{
+    struct Stu s[3] = { {"zhangsan",20},{"lisi",30},{"wangwu",10} };
+    int sz = sizeof(s) / sizeof(s[0]);
+    qsort(s, sz, sizeof(s[0]), cmp_stu_by_name);
+    //qsort(base,number,size,cmp_function)
+    //base:待排序数组首元素地址
+    //number:待排序数组的元素个数
+    //size:待排序数组每个元素的大小(单位是字节)
+    //cmp_function:函数指针，比较两个元素所用函数的地址(这个函数需要使用者自己实现)
+    //             函数指针的两个参数是待比较的两个元素的地址
+}
+
+void Swap(char* buf1, char* buf2, int width)
+{
+    int i = 0;
+    for (i = 0; i < width; i++)
+    {
+        char tmp = *buf1;
+        *buf1 = *buf2;
+        *buf2 = tmp;
+        buf1++;
+        buf2++;
+    }
+}
+
+void bubble_sort(void* base, int sz, int width, int (*cmp)(void*e1,void*e2))
+{
+    int i = 0;
+    for (i = 0; i < sz - 1; i++)
+    {
+        int j = 0;
+        for (j = 0; j < sz - 1 - i; j++)
+        {
+            if (cmp((char*)base + j * width, (char*)base + (j + 1) * width) > 0)
+            {
+                Swap((char*)base + j * width, (char*)base + (j + 1) * width, width);  //交换
+            }
+        }
+    }
+}
+
+void test4()
+{
+    int i = 0;
+    int arr[10] = { 9,8,7,6,5,4,3,2,1,0 };
+    int sz = sizeof(arr) / sizeof(arr[0]);
+    bubble_sort(arr,sz,sizeof(arr[0]),cmp_int);
+    for (i = 0; i < sz; i++)
+    {
+        printf("%d ", arr[i]);
+    }
+}
+
+void test5()
+{
+    struct Stu s[3] = { {"zhangsan",20},{"lisi",30},{"wangwu",10} };
+    int sz = sizeof(s) / sizeof(s[0]);
+    bubble_sort(s, sz, sizeof(s[0]), cmp_stu_by_age);
+}
+int main()
+{
+    //test1();
+    //test2();
+    //test3();
+    //test4();
+    test5();
+    return 0;
+}
+
+40.  阿里巴巴指针笔试题
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    char* c[] = {"ENTER","NEW","POINT","FIRST"};
+    char** cp[] = { c + 3, c + 2, c + 1, c };
+    char*** cpp = cp;
+    printf("%s\n", **++cpp);
+    printf("%s\n", *--*++cpp + 3);
+    printf("%s\n", *cpp[-2] + 3);
+    printf("%s\n", cpp[-1][-1] + 1);
+    return 0;
+}
+
+41.打印1~10000内的自幂数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<math.h>
+int main()
+{
+    int i = 0;
+    int j = 0;
+    printf("1~100000的自幂数为：");
+    for (i = 0; i < 100000; i++)
+    {
+        int n = 0;
+        int sum = 0;
+        int tmp = i;
+        while (tmp)
+        {
+            tmp = tmp / 10;
+            n++;
+        }
+        tmp = i;
+        for (j = 0; j < n; j++)
+        {
+            sum += pow((tmp % 10), n);
+            tmp /= 10;
+        }
+        if (sum == i)
+        {
+            printf("%d ",i);
+        }
+    }
+    printf("\n");
+    return 0;
+}
+
+42.  打印菱形
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int i = 0;
+    int j = 0;
+    int n = 0;
+    printf("请输入菱形上半部分的行数:");
+    scanf("%d", &n);
+    //打印上半部分
+    for (i = 0; i < n; i++)
+    {
+        for (j = 0; j < n - 1 - i; j++)
+        {
+            printf(" ");
+        }
+        for (j = 0; j < 2*i+1; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    //打印下半部分
+    for (i = 1; i < n; i++)
+    {
+        for (j = 0; j < i; j++)
+        {
+            printf(" ");
+        }
+        for (j = 0; j < 2 * (n - i) - 1; j++)
+        {
+            printf("*");
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+43.  喝汽水：一瓶汽水1元，两个空瓶可以换一瓶汽水，给20元，可以得到几瓶汽水？
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int money = 0;
+    printf("请输入钱数：");
+    scanf("%d", &money);
+    int sum = money;
+    while (money >= 2)
+    {
+        sum += money / 2;
+        money = money / 2 + money % 2;
+    }
+    printf("20元可以得到%d瓶汽水",sum);
+    return 0;
+}
+
+44.  打印杨辉三角
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int arr[10][10] = { 0 };
+    int i = 0;
+    int j = 0;
+    for (i = 0; i < 10; i++)
+    {
+        for (j = 0; j < 10; j++)
+        {
+            if (j == 0 || i==j)
+            {
+                arr[i][j] = 1;
+            }
+            if (i >= 2 && j >= 1)
+            {
+                arr[i][j] = arr[i - 1][j] + arr[i - 1][j - 1];
+            }
+        }
+    }
+    for (i = 0; i < 10; i++)
+    {
+        for (j = 0; j <= i; j++)
+        {
+            printf("%2d ", arr[i][j]);
+        }
+        printf("\n");
+    }
+    return 0;
+}
+
+45.  猜凶手
+四个嫌疑犯的供词：A说：不是我
+                              B说：是C 
+                              C说：是D 
+                              D说：C在胡说  
+只有一个人说假话，谁是凶手？
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int main()
+{
+    int killer = 0;
+    for (killer = 'a'; killer <= 'd'; killer++)
+    {
+        if ((killer != 'a') + (killer == 'c') + (killer == 'd') + (killer != 'd') == 3)
+        {
+            printf("凶手是%c\n", killer);
+        }
+    }
+    return 0;
+}
+
+46.  左旋字符串
+①用循环
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int i = 0;
+    int k = 0;
+    int j = 0;
+    char tmp = 0;
+    printf("请输入一个字符串：");
+    char arr[255] = {0};
+    scanf("%s", arr);
+    int sz = strlen(arr);
+    printf("请输入左旋的位数：");
+    scanf("%d", &k);
+    for (i = 0; i < k; i++)
+    {
+       tmp = arr[0];
+        for (j = 0; j < sz-1; j++)
+        {
+            arr[j] = arr[j + 1];
+        }
+        arr[sz - 1] = tmp;
+    }
+    for (i = 0; i < sz; i++)
+    {
+        printf("%c ", arr[i]);
+    }
+    return 0;
+}
+②三步翻转法
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+int main()
+{
+    int i = 0;
+    int k = 0;
+    printf("请输入一个字符串：");
+    char arr[255] = {0};
+    scanf("%s", arr);
+    int sz = strlen(arr);
+    printf("请输入左旋的位数：");
+    scanf("%d", &k);
+    //倒序前k个字符
+    for (i = 0; i < k / 2; i++)
+    {
+        char tmp = 0;
+        tmp = arr[i];
+        arr[i] = arr[k - 1 - i];
+        arr[k - 1 - i] = tmp;
+    }
+    //倒序剩余字符
+    for (i = 0; i < (sz - k) / 2; i++)
+    {
+        char tmp = 0;
+        tmp = arr[k + i];
+        arr[k + i] = arr[sz - 1 - i];
+        arr[sz - 1 - i] = tmp;
+    }
+    //倒序全部字符
+    for (i = 0; i < sz / 2; i++)
+    {
+        char tmp = 0;
+        tmp = arr[i];
+        arr[i] = arr[sz - 1 - i];
+        arr[sz - 1 - i] = tmp;
+    }
+    //打印数组
+    for (i = 0; i < sz; i++)
+    {
+        printf("%c ", arr[i]);
+    }
+    return 0;
+}
+③用函数简化三步翻转法
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+#include<assert.h>
+void reverse(char* left,char* right)
+{
+    assert(left != NULL);          //assert断言：不满足括号内的条件时则终止程序并报错
+    assert(right != NULL);
+    while (left < right)
+    {
+        char tmp = *left;
+        *left = *right;
+        *right = tmp;
+        left++;
+        right--;
+    }
+}
+int main()
+{
+    int i = 0;
+    int k = 0;
+    printf("请输入一个字符串：");
+    char arr[255] = {0};
+    scanf("%s", arr);
+    int sz = strlen(arr);
+    printf("请输入左旋的位数：");
+    scanf("%d", &k);
+    assert(k <= sz);
+    reverse(arr, arr + k - 1);                 //倒序前k个字符
+    reverse(arr + k, arr + sz - 1);         //倒序剩余字符
+    reverse(arr, arr + sz - 1);               //倒序全部字符
+    for (i = 0; i < sz; i++)                    //打印数组
+    {
+        printf("%c ", arr[i]);
+    }
+    return 0;
+}
+
+47.  杨氏矩阵内查找数字(时间复杂度小于O(N))
+杨氏矩阵：矩阵每行从左到右递增，每列从上到下递增
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+int FindNum(int arr[3][3], int k, int* px, int* py)
+{
+    int x = 0;
+    int y = *py - 1;
+    while (x <= *px - 1 && y >= 0)
+    {
+        if (arr[x][y] > k)
+        {
+            y--;
+        }
+        else if (arr[x][y] < k)
+        {
+            x++;
+        }
+        else
+        {
+            *px = x;                //通过传递地址来打印下标
+            *py = y;
+            return 1;
+        }
+    }
+}
+int main()
+{
+    int arr[3][3] = { {1,2,3},{4,5,6}, {7,8,9} };
+    int k = 0;
+    int x = 3;
+    int y = 3;
+    printf("请输入要查找的数字：");
+    scanf("%d", &k);
+    int ret = FindNum(arr, k, &x, &y);
+    if (ret == 1)
+    {
+        printf("找到了\n");
+        printf("下标是：%d %d", x, y);
+    }
+    else
+    {
+        printf("找不到\n");
+    }
+    return 0;
+}
+
+48.  实现strcat函数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<assert.h>
+char* my_strcat(char* dest, const  char* src)
+{
+    char* ret = dest;
+    assert(dest != NULL);
+    assert(src != NULL);
+    while (*dest != '\0')
+    {
+        dest++;
+    }
+    while (*dest++ = *src++)
+    {
+        ;
+    }
+    return ret;
+}
+int main()
+{
+    char arr1[30] = "hello";
+    char arr2[] = "world";
+    my_strcat(arr1, arr2);
+    printf("%s\n", arr1);
+    return 0;
+}
+
+49.  实现strstr函数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<assert.h>
+char* my_strstr(const char* p1, const char* p2)
+{
+    assert(p1 != NULL);
+    assert(p2 != NULL);
+    char* s1 = NULL;
+    char* s2 = NULL;
+    char* cur = (char*) p1;
+    if (*p2 == '\0')
+    {
+        return (char*) p1;
+    }
+    while (*cur)
+    {
+        s1 = cur;
+        s2 = (char*) p2;
+        while ((*s1 != '\0') && (*s2 != '\0') && (*s1 == *s2))
+        {
+            s1++;
+            s2++;
+        }
+        if (*s2 == '\0')
+        {
+            return cur;
+        }
+        cur++;
+    }
+    return NULL;
+}
+int main()
+{
+    char* p1 = "abbbcdefg";
+    char* p2 = "bbc";
+    char* ret = my_strstr(p1, p2);
+    if (ret == NULL)
+    {
+        printf("找不到字符串\n");
+    }
+    else
+    {
+        printf("%s\n", ret);
+    }
+    return 0;
+}
+
+50.  实现memmove函数
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<assert.h>
+void* my_memmove(void* dest, void* src, size_t count)
+{
+    assert(dest != NULL);
+    assert(src != NULL);
+    void* ret = dest;
+    if (dest < src)
+    {
+        //从前向后拷贝
+        while (count--)
+        {
+            *(char*)dest = *(char*)src;
+            ++(char*)dest;
+            ++ (char*)src;
+        }
+    }
+    else
+    {
+        //从后向前拷贝
+        while (count--)
+        {
+            *((char*)dest + count) = *((char*)src + count);
+        }
+    }
+    return ret;
+}
+int main()
+{
+    int i = 0;
+    int arr[] = { 1,2,3,4,5,6,7,8,9,10 };
+    my_memmove( arr + 4,arr,20 );
+    for (i = 0; i < 10; i++)
+    {
+        printf("%d", arr[i]);
+    }
+    return 0;
+}
+
+51.  通讯录实现(默认可存储三个人的信息，可动态增容)
+注：本程序分为三个文档： ① test.c :在本文件内设计游戏流程
+                                         ② contact.h :在本文件内进行函数的声明及头文件的引用
+                                         ③ contact.c :在本文件内设计游戏中函数的具体实现
+①test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"contact.h"
+void menu()
+{
+    printf("*************************************\n");
+    printf("***** 1. add      2. del    *********\n");
+    printf("***** 3. search   4. modify *********\n");
+    printf("***** 5. show     6. sort   *********\n");
+    printf("***** 7.save      0. exit   *********\n");
+    printf("*************************************\n");
+}
+int main()
+{
+    int input = 0;
+    struct Contact con;   //创建通讯录，存放data指针、capacity和size
+    InitContact(&con);    //初始化通讯录
+    do
+    {
+        menu();
+        printf("请选择：");
+        scanf("%d",&input);
+        switch (input)
+        {
+        case ADD:
+            AddContact(&con);
+            break;
+        case DEL:
+            DelContact(&con);
+            break;
+        case MODIFY:
+            ModifyContact(&con);
+            break;
+        case SEARCH:
+            SerchContact(&con);
+            break;
+        case SHOW:
+            ShowContact(&con);
+            break;
+        case SORT:
+            SortContact(&con);
+            break;
+        case EXIT:
+        {
+            int i = 0;
+            printf("是否保存？(1,保存 0,不保存)");
+            scanf("%d", &i);
+            if (i == 1)
+            {
+                SaveContact(&con);
+            }
+            DestroryContact(&con);//销毁通讯录(释放动态开辟的内存)
+            printf("退出通讯录\n");
+            break;
+        }  
+        case SAVE:
+            SaveContact(&con);
+            break;
+        default:
+            printf("选择错误\n");
+        }
+    } while (input);
+    return 0;
+}
+
+
+
+② contact.h 
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+#include<string.h>
+#include<stdlib.h>
+#include<errno.h>
+
+//#define MAX 1000
+#define DEFAULT_SZ 3
+#define MAX_NAME 15
+#define MAX_SEX 5
+#define MAX_TELE 12
+#define MAX_ADDR 30
+
+enum Option
+{
+	EXIT,
+	ADD,
+	DEL,
+	SEARCH,
+	MODIFY,
+	SHOW,
+	SORT,
+	SAVE
+};
+
+struct PeoInfo
+{
+	char name[MAX_NAME];
+	int age;
+	char sex[MAX_SEX];
+	char tele[MAX_TELE];
+	char addr[MAX_ADDR];
+};
+
+struct Contact
+{
+	struct PeoInfo* data;  //存放个人信息
+	int capacity;//记录通讯录的最大容量
+	int size;  //记录当前已经有的元素个数
+};
+
+void InitContact(struct Contact* ps);
+void AddContact(struct Contact* ps);
+void DelContact(struct Contact* ps);
+void ModifyContact(struct Contact* ps);
+void SerchContact(const struct Contact* ps);
+void ShowContact(const struct Contact* ps);
+void SortContact( struct Contact* ps);
+void DestroryContact(struct Contact* ps);
+void SaveContact(struct Contact* ps);
+
+ ③ contact.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"contact.h"
+//根据名字查找
+static int FindByName(const struct Contact* ps,char name[MAX_NAME])
+{
+	int i = 0;
+	for (i = 0; i < ps->size; i++)
+	{
+		if (0 == strcmp(ps->data[i].name, name))
+		{
+			return i;
+		}
+	}
+	return -1;
+}
+
+void CheckCapacity(struct Contact* ps);//函数声明
+//初始化通讯录
+void LoadContact(struct Contact* ps)
+{
+	struct PeoInfo tmp = { 0 };
+	FILE* pfRead = fopen("contact.txt", "rb");
+	if (pfRead == NULL)
+	{
+		printf("LoadContact:%s\n", strerror(errno));
+		return;
+	}
+	while (fread(&tmp, sizeof(struct PeoInfo), 1, pfRead))
+	{
+		CheckCapacity(ps);
+		ps->data[ps->size] = tmp;
+		ps->size++;
+	}
+	fclose(pfRead);
+	pfRead = NULL;
+}
+
+void InitContact(struct Contact* ps)
+{
+	ps->data = (struct PeoInfo*)malloc(DEFAULT_SZ * sizeof(struct PeoInfo));
+	if (ps->data == NULL)
+	{
+		return;
+	}
+	ps->size = 0;
+	ps->capacity = DEFAULT_SZ;
+	//把文件中的信息加载到通讯录中
+	LoadContact(ps);
+}
+//增加数据
+void CheckCapacity(struct Contact* ps)
+{
+	if (ps->size == ps->capacity)
+	{
+		struct PeoInfo*ptr = realloc(ps->data, (ps->capacity + 2) * sizeof(struct PeoInfo));
+		if (ptr != NULL)
+		{
+			ps->data = ptr;
+			ps->capacity += 2;
+			printf("增容成功\n");
+		}
+	}
+	
+}
+
+void AddContact(struct Contact* ps)
+{
+	CheckCapacity(ps);//检测通讯录容量，满了增加空间，不满什么都不做
+	printf("请输入名字：");
+	scanf("%s", ps->data[ps->size].name);
+	printf("请输入年龄：");
+	scanf("%d", &(ps->data[ps->size].age));
+	printf("请输入性别：");
+	scanf("%s", ps->data[ps->size].sex);
+	printf("请输入电话：");
+	scanf("%s", ps->data[ps->size].tele);
+	printf("请输入地址：");
+	scanf("%s", ps->data[ps->size].addr);
+	ps->size++;
+	printf("添加成功\n");
+}
+//删除数据
+void DelContact(struct Contact* ps)
+{
+	char name[MAX_NAME];
+	printf("请输入要删除人的名字：");
+	scanf("%s", name);
+	int pos = FindByName(ps, name);      //找到了返回名字元素的下标，否则返回-1
+	if (pos == -1)
+	{
+		printf("要删除的人不存在\n");
+	}
+	else
+	{
+		int j = 0;
+		for (j = pos; j < ps->size - 1; j++)
+		{
+			ps->data[j] = ps->data[j + 1];
+		}
+		ps->size--;
+		printf("删除成功\n");
+	}
+}
+//打印通讯录
+void ShowContact(const struct Contact* ps)
+{
+	if (ps->size == 0)
+	{
+		printf("通讯录为空\n");
+	}
+	else
+	{
+		int i = 0;
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		for (i = 0; i < ps->size; i++)
+		{
+			printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+				ps->data[i].name, 
+				ps->data[i].age, 
+				ps->data[i].sex, 
+				ps->data[i].tele, 
+				ps->data[i].addr );
+		}
+	}
+}
+//根据名字搜索数据
+void SerchContact(const struct Contact* ps)
+{
+	int pos = 0;
+	char name[MAX_NAME];
+	printf("请输入要查找人的名字：");
+	scanf("%s", name);
+	pos = FindByName(ps, name);      
+	if (pos == -1)
+	{
+		printf("要查找的人不存在\n");
+	}
+	else
+	{
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+				ps->data[pos].name,
+				ps->data[pos].age,
+				ps->data[pos].sex,
+				ps->data[pos].tele,
+				ps->data[pos].addr);
+	}
+}
+//修改数据
+void ModifyContact(struct Contact* ps)
+{
+	int pos = 0;
+	char name[MAX_NAME];
+	printf("请输入要修改人的名字：");
+	scanf("%s", name);
+	pos = FindByName(ps, name);
+	if (pos == -1)
+	{
+		printf("要修改的人不存在\n");
+	}
+	else
+	{
+		printf("%-15s\t%-4s\t%-5s\t%-12s\t%-20s\n", "名字", "年龄", "性别", "电话", "地址");
+		printf("%-15s\t%-4d\t%-5s\t%-12s\t%-20s\n",
+			ps->data[pos].name,
+			ps->data[pos].age,
+			ps->data[pos].sex,
+			ps->data[pos].tele,
+			ps->data[pos].addr);
+		printf("请输入名字：");
+		scanf("%s", ps->data[pos].name);
+		printf("请输入年龄：");
+		scanf("%d", &(ps->data[pos].age));
+		printf("请输入性别：");
+		scanf("%s", ps->data[pos].sex);
+		printf("请输入电话：");
+		scanf("%s", ps->data[pos].tele);
+		printf("请输入地址：");
+		scanf("%s", ps->data[pos].addr);
+	}
+}
+//根据年龄从小到大排序
+void SortContact(struct Contact* ps)
+{
+	int i = 0;
+	for (i = 0; i < ps->size - 1; i++)
+	{
+		int j = 0;
+		for (j = i + 1; j < ps->size; j++)
+		{
+			if (ps->data[i].age > ps->data[j].age)
+			{
+				struct PeoInfo tmp = {0};
+				tmp = ps->data[i];
+				ps->data[i] = ps->data[j];
+				ps->data[j] = tmp;
+			}
+		}
+	}
+	printf("排序完成\n");
+}
+
+//释放动态空间
+void DestroryContact(struct Contact* ps)
+{
+	free(ps->data);
+	ps->data = NULL;
+}
+
+void SaveContact(struct Contact* ps)
+{
+	FILE* pfWrite = fopen("contact.txt", "wb");
+	if (pfWrite == NULL)
+	{
+		printf("SaveContact:%s\n", strerror(errno));
+		return;
+	}
+	//把通讯录数据写入文件中
+	int i = 0;
+	for (i = 0; i < ps->size; i++)
+	{
+		fwrite(&(ps->data[i]), sizeof(struct PeoInfo), 1, pfWrite);
+	}
+	fclose(pfWrite);
+	pfWrite = NULL;
+}
+
+52.  编写宏，计算结构体中某变量相对于首地址的偏移
+#define _CRT_SECURE_NO_WARNINGS 1
+#include<stdio.h>
+struct S
+{
+    char c1;
+    int  a;
+    char c2;
+};
+
+#define OFFSETOF(struct_name,member_name) (int)&(((struct S*)0)->member_name)
+
+int main()
+{
+    printf("%d\n", OFFSETOF(struct s, c1));
+    printf("%d\n", OFFSETOF(struct s, a));
+    printf("%d\n", OFFSETOF(struct s, c2));
+    return 0;
+}
+
+53.  顺序表的增删查操作算法
+①test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include "SqList.h"
+
+void menu()
+{
+    printf("********************************\n");
+    printf("***** 1. getelem       *********\n");
+    printf("***** 2. listinsert    *********\n");
+    printf("***** 3. listdelete    *********\n");
+    printf("***** 0. exit          *********\n");
+    printf("********************************\n");
+}
+
+int main()
+{
+    int input = 0;
+    SqList L;
+    SqListInit(&L);                  //L的初始化
+    do
+    {
+        menu();
+        printf("请选择：");
+        scanf("%d", &input);
+        switch (input)
+        {
+          case GETELEM:
+          {
+              int i = 0;
+              int e = 0;
+              printf("请输入要查找的位置：\n");
+              scanf("%d", &i);
+              GetElem(&L, i, &e);  //查找L中第i个数据赋值给e
+              printf("该位置的数据为：%d\n", e);
+              break;
+          }
+          case LISTINSERT:
+          {
+              int i = 0;
+              int e = 0;
+              printf("请输入要插入的数值：");
+              scanf("%d", &e);
+              printf("请输入要插入的位置：");
+              scanf("%d", &i);
+              ListInsert(&L, i, e); //在L中第i个位置之前插入新的数据元素e,L的长度加一
+              break;
+          }
+          case LISTDELETE:
+          {
+              int i = 0;
+              int e = 0;
+              printf("请输入要删除数据的位置：");
+              scanf("%d", &i);
+              ListDelete(&L, i, &e); //删除L中第i个元素，并用e返回其值，L的长度减一
+              printf("位置%d处的数据%d已删除\n",i,e);
+          }
+        }
+    } while (input);
+    free(L.data);
+    L.data = NULL;
+    return 0;
+}
+②SqList.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"SqList.h"
+//初始化L
+void SqListInit(SqList* L)               
+{
+	int i = 0;
+	L->length = 0;
+	L->data = (ElemType*)malloc(sizeof(ElemType)*CAPACITY);
+	for (i = 0; i < 10; i++)
+	{
+		L->data[i] = i+1;
+		L->length++;
+	}
+}
+//查
+Status GetElem(SqList* L, int i, ElemType* e)
+{
+	if (L->length == 0 || i<1 || i>L->length)    //判断线性表是否为空，判断查找位置是否合法
+	{
+		return ERROR;
+	}
+	*e = L->data[i - 1];
+	return OK;
+}
+//增
+Status ListInsert(SqList* L, int i, ElemType e)
+{
+	int k = 0;
+	if (L->length == CAPACITY)                    //判断线性表是否满了
+	{
+		return ERROR;
+	}
+	if (i<1 || i>L->length + 1)                   //判断插入位置是否合法
+	{
+		return ERROR;
+	}
+	if (i <= L->length)                           //若插入位置不在表尾
+	{
+		for (k = L->length - 1; k >= i - 1; k--)  //插入位置后的元素向后移动一位
+		{
+			L->data[k + 1] = L->data[k];
+		}
+	}
+	L->data[i - 1] = e;                            //插入e
+	L->length++;
+	return OK;
+}
+//删
+Status ListDelete(SqList* L, int i, ElemType* e)
+{
+	int k = 0;
+	if (L->length == 0)                             //判断是否为空表
+	{
+		return ERROR;
+	}
+	if (i<1 || i>L->length)                         //判断删除位置是否合法
+	{
+		return ERROR;
+	}
+	*e = L->data[i - 1];            
+	if (i < L->length)
+	{
+		for (k = i; k < L->length; k++)              //将删除位置后的元素迁移一位
+		{
+			L->data[k - 1] = L->data[k];
+		}
+	}
+	L->length--;
+	return OK;
+}
+
+③SqList.h
+#pragma once
+#include<stdio.h>
+#include<stdlib.h>
+#define OK  1
+#define ERROR  0
+#define CAPACITY 20            //动态数组容量
+typedef int Status;            //Status 是函数类型，其值是函数结果状态代码，如OK等
+typedef int ElemType;          //ElemType类型根据实际情况而定，这里假设为int
+
+enum Option
+{
+	EXIT,
+	GETELEM,
+	LISTINSERT,
+	LISTDELETE
+};
+
+//动态分配数组
+typedef struct Sqlist
+{
+	ElemType* data;            //创建一个动态数组指针
+	int length;                //统计线性表当前长度
+}SqList;
+
+void SqListInit(SqList* L);
+Status GetElem(SqList* L, int i, ElemType* e);           //查找数据
+Status ListInsert(SqList* L, int i, ElemType e);         //插入数据
+Status ListDelete(SqList* L, int i, ElemType* e);        //删除数据
+
+54.  单链表操作算法
+①test.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include "LinkList.h"
+
+void menu()
+{
+    printf("*************************************************\n");
+    printf("***** 1.getelem          2.listinsert   *********\n");
+    printf("***** 3.listdelete       4.clearlist    *********\n");
+    printf("***** 5.printlist        0. exit        *********\n");
+    printf("*************************************************\n");
+}
+
+int main()
+{
+    int i = 0;
+    LinkList L;
+    int n = 0;
+    printf("请输入链表长度：");
+    scanf("%d", &n);
+    CreatListHead(&L, n);
+    printf("链表初始化完成,请选择如下操作\n");
+    int input = 0;
+    do
+    {
+        menu();
+        printf("请选择：");
+        scanf("%d", &input);
+        switch (input)
+        {
+        case GETELEM:
+         {
+            int e = 0;
+            printf("请输入要查找的位置：\n");
+            scanf("%d", &i);
+            assert(i <= n);
+            GetElem(L, i, &e);  //查找L中第i个数据赋值给e
+            printf("该位置的数据为：%d\n", e);
+            break;
+         }
+        case LISTINSERT:
+         {
+            int e = 0;
+            printf("请输入要插入的数据：");
+            scanf("%d", &e);
+            printf("请输入要插入的位置：\n");
+            scanf("%d", &i);
+            assert(i >= 0 && i <= n + 1);
+            ListInsert(&L, i, e);
+            break;
+         }
+        case LISTDELETE:
+         {
+            int e = 0;
+            printf("请输入要删除数据的位置：");
+            scanf("%d", &i);
+            assert(i >= 1 && i <= n);
+            ListDelete(&L, i, &e);
+            break;
+         }
+        case CLEARLIST:
+         {
+            ClearList(&L);
+            break;
+         }
+        case PRINTLIST:
+         {
+            Print(L);
+            break;
+         }
+        }
+    } while (input);
+    DestroyList(&L);
+    return 0;
+}
+
+②LinkList.c
+#define _CRT_SECURE_NO_WARNINGS 1
+#include"LinkList.h"
+
+//头插法
+void CreatListHead(LinkList* L, int n)             
+{
+	LinkList p = NULL;
+	int i = 0;
+	srand(time(0));                              //初始化随机数种子
+	*L = (LinkList)malloc(sizeof(Node));
+	(*L)->next = NULL;                           //建立一个带头结点的单链表
+	for (i = 0; i < n; i++)
+	{
+		p = (LinkList)malloc(sizeof(Node));      //生成新结点
+		p->data = rand() % 100 + 1;              //随机生成100以内的数字
+		p->next = (*L)->next;
+		(*L)->next = p;                          //插入到表头
+	}
+	printf("链表创建完成\n");
+}
+//尾插法
+void CreatListTail(LinkList* L, int n)
+{
+	LinkList p, r;
+	int i = 0;
+	srand(time(0));                               //初始化随机数种子
+	*L = (LinkList)malloc(sizeof(Node));          
+	r = *L;                                       //r为指向尾部的结点
+	for (i = 0; i < n; i++)
+	{
+		p = (Node*)malloc(sizeof(Node));          //生成新结点
+		p->data = rand() % 100 + 1;               //随机生成100以内的数字
+		r->next = p;                              //将表尾终端结点的指针指向新结点
+		r = p;                                    //将当前的新结点定义为表尾终端结点
+	}
+	r->next = NULL;                               //链表创建完成
+	printf("链表创建完成\n");
+}
+
+void Print(const LinkList L)       //打印链表
+{
+	LinkList p = L->next;
+	if (L->next == NULL)
+	{
+		printf("当前链表为空。\n");
+	}
+	else
+	{
+		printf("当前链表为：");
+		while (p != NULL)
+		{
+			printf("%d ", p->data);
+			p = p->next;
+		}
+		printf("\n");
+	}
+}
+
+Status GetElem(const LinkList L, int i, ElemType* e)
+{
+	int j = 0;
+	LinkList p;          //声明一个结点p
+	p = L->next;         //让p指向链表L的第一个结点
+	j = 1;               //计数器
+	while (p && j < i)   //p不为空或计数器j还没有等于i时，循环继续
+	{
+		p = p->next;     //p指向下一个结点
+		j++;
+	}
+	if (!p || j > i)
+	{
+		return ERROR;    //第i个元素不存在
+	}
+	*e = p->data;        //取第i个元素赋值给e
+	return OK;
+}
+
+Status ListInsert(LinkList* L, int i, ElemType e)  
+{
+	int j = 1;
+    LinkList p = *L;
+	static LinkList s = NULL;
+	while (p && j < i)       //寻找第i个结点
+	{
+		p = p->next;
+		j++;
+	}
+	if (!p || j > i)
+	{
+		return ERROR;        //第i个元素不存在
+	}
+	s = (LinkList)malloc(sizeof(Node));  //生成新结点
+	s->data = e;
+	s->next = p->next;       //将p后继结点赋值给s的后继
+	p->next = s;             //将新结点s赋值给p的后继
+	printf("插入成功\n");
+	return OK;               //插入完成
+}
+
+Status ListDelete(LinkList* L, int i, ElemType* e)
+{
+	int j = 1;
+	LinkList p = *L;
+	LinkList q = NULL;
+	while (p->next && j < i)   //遍历寻找第i个元素
+	{
+		p = p->next;
+		j++;
+	}
+	if (!(p->next) || j > i)
+	{
+		return ERROR;          //第i个元素不存在
+	}
+	q = p->next;              //将p的后继赋值给q
+	p->next = q->next;        //将q的后继赋值给p的后继
+	*e = q->data;             //将q的数据赋值给e
+	printf("%d处的数据%d已删除\n", i, *e);
+	free(q);
+	q = NULL;
+	return OK;
+}
+
+Status ClearList(LinkList* L)
+{
+	LinkList p = (*L)->next;   //p指向第一个结点
+	LinkList q = NULL;         
+	while (p)                  //p没到表尾
+	{
+		q = p->next;
+		free(p);
+		p = q;
+	}
+	(*L)->next = NULL;         //头结点指针域设为空
+	printf("链表已清空\n");
+	return OK;
+}
+
+Status DestroyList(LinkList* L)
+{
+	LinkList p = NULL;
+	while (*L != NULL)
+	{
+		p = *L;
+		*L = (*L)->next;
+		free(p);
+	}
+	free(*L);
+	*L = NULL;
+	printf("链表已销毁");
+	return OK;
+}
+
+③LinkList.h
+#pragma once
+#include<stdio.h>
+#include<stdlib.h>
+#include<time.h>
+#include<assert.h>
+
+#define OK  1
+#define ERROR  0
+typedef int ElemType;
+typedef int Status;
+
+enum Option
+{
+	EXIT,
+	GETELEM,
+	LISTINSERT,
+	LISTDELETE,
+	CLEARLIST,
+	PRINTLIST
+};
+
+typedef struct Node {
+	ElemType data;           //数据域
+	struct Node* next;      //指针域
+}Node;
+typedef struct Node* LinkList;
+
+void Print(LinkList L);  //打印链表
+void CreatListHead(LinkList* L, int n);  //头插法创建链表
+void CreatListTail(LinkList* L, int n);  //尾插法创建链表
+Status GetElem(LinkList L, int i, ElemType* e);  //获取L中i处元素赋值给e
+Status ListInsert(LinkList* L, int i, ElemType e);  //在L中i个位置前插入新数据元素e，长度加一
+Status ListDelete(LinkList* L, int i, ElemType* e);  //删除L第i个数据元素，并用e返回其值，L长度减一
+Status ClearList(LinkList* L);    //将L重置为空表
+Status DestroyList(LinkList* L);  //销毁链表
+
+55.  计算1！+2！+……+10！
+#define _CRT_SECURE_NO_WARNINGS
+#include <stdio.h>
+
+int main()
+{
+	int ret = 1;
+	int i = 0;
+	int n = 0;
+	int sum = 0;
+	for (i = 1; i <= 10; i++)
+	{
+		ret *= i;
+		sum += ret;
+	}
+	return 0;
+}
