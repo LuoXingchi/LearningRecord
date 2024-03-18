@@ -53,6 +53,7 @@
 53.  顺序表的增删查操作算法
 54.  单链表操作算法
 55.  计算1！+2！+……+10！
+56. 用户输入M,N值，从1至N开始顺序循环数数，每数到M输出该数值，直至全部输出（约瑟夫问题）
 
 
 
@@ -3218,4 +3219,60 @@ int main()
 		sum += ret;
 	}
 	return 0;
+}
+
+56. 用户输入M,N值，从1至N开始顺序循环数数，每数到M输出该数值，直至全部输出（约瑟夫问题）
+#define _CRT_SECURE_NO_WARNINGS	1
+#include <stdio.h>
+#include<stdlib.h>
+
+/* 节点 */
+typedef struct node {
+	int num;
+	struct node* next;
+}Node;
+
+/* 创建一个环形链表 */
+Node* create_list(int n) {
+	Node* head, * tail;
+	head = tail = NULL;
+	for (int i = 0; i < n; i++) {
+		Node* p = (Node*)malloc(sizeof(Node));
+		p->num = i + 1;    /* 依次标记当前位置 */
+		if (head == NULL) {
+			head = p;
+			tail = p;
+			head->next = NULL;
+		}
+		else
+		{
+			tail->next = p;
+			tail = p;
+		}
+		tail->next = head;
+	}
+	return head;  /* 返回头结点 */
+}
+
+int main() {
+	int n, s;
+	printf("请输入:");
+	scanf("%d %d", &n, &s);
+	Node* cur = create_list(n);
+	int count = 1;		/* 此时cur指向的是第一个节点，所以count为1 */
+	while (n != 1) {	/* 当n=1时候，结束循环，此时剩下最后一个人 */
+		count++;		/* 先进行count统计 */
+		if (count == s) {
+			n--;
+			/* 进行删除节点操作 */
+			Node* del_node = cur->next;
+			printf("%d  ", del_node->num);	/* 打印将删除的数字 */
+			cur->next = del_node->next;
+			free(del_node);					/* 释放掉这个节点 */
+			count = 1;						/* 此时count回归到1，也就是重新开始新的一轮 */
+
+		}
+		cur = cur->next;
+	}
+	printf("最后剩下的是：%d\n", cur->num);
 }
